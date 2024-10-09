@@ -57,7 +57,7 @@ bool test() {
 
 void feedArray(int* array, int arrayLength) {
 	for (int i = 0; i < arrayLength; ++i) {
-		array[i] = (rand() % VALUES_COUNT - 104) + MIN_VALUE;
+		array[i] = (rand() % VALUES_COUNT) + MIN_VALUE;
 	}
 }
 
