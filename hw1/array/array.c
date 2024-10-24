@@ -1,36 +1,24 @@
 ﻿#include <stdio.h>
 #include <locale.h>
 
-void swap(int m, int n, int array[]) {
-	int temp = 0;
-	int start = 0;
-	int end = m - 1;
+
+void reverseSegments(int *start, int *end) {
+	--end;
 	while (start < end) {
-		temp = array[start];
-		array[start] = array[end];
-		array[end] = temp;
+		if (start != end) {
+			*start ^= *end;
+			*end ^= *start;
+			*start ^= *end;
+		}
 		start++;
 		end--;
+	}
 	}
 
-	start = m;
-	end = m + n - 1;
-	while (start < end) {
-		temp = array[start];
-		array[start] = array[end];
-		array[end] = temp;
-		start++;
-		end--;
-	}
-	start = 0;
-	end = m + n - 1;
-	while (start < end) {
-		temp = array[start];
-		array[start] = array[end];
-		array[end] = temp;
-		start++;
-		end--;
-	}
+void mainSwap(int m, int n, int array[]) {
+	reverseSegments(array, array + m);
+	reverseSegments(array + m, array + m + n);
+	reverseSegments(array, array + m + n);
 }
 
 int main(void) {
@@ -45,7 +33,7 @@ int main(void) {
 	}
 	printf("\n\n");
 	printf("Массив после преобразования:\n");
-	swap(m, n, array);
+	mainSwap(m, n, array);
 	for (int i = 0; i < size; i++) {
 		printf("%d", array[i]);
 	}
