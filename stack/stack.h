@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 typedef struct Stack Stack;
 
 typedef struct StackElement {
@@ -20,4 +22,4 @@ void push(Stack* stack, int value);
 void pop(Stack* stack);
 
 //function checks if the stack is empty
-int isEmpty(Stack* stack);
+bool isEmpty(Stack* stack);

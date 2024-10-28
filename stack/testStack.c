@@ -6,7 +6,9 @@
 
 bool testCreateStack() {
     Stack* stack = createStack();
-    return (stack != NULL && isEmpty(stack));
+    bool result = (stack != NULL && isEmpty(stack));
+    free(stack);
+    return result;
 }
 
 bool testPush() {
