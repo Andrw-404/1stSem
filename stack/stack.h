@@ -19,7 +19,7 @@ Stack* createStack();
 void push(Stack* stack, int value);
 
 //function removes an item from the stack
-void pop(Stack* stack);
+int pop(Stack* stack);
 
 //function checks if the stack is empty
 bool isEmpty(Stack* stack);
