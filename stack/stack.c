@@ -4,7 +4,6 @@
 
 #include "stack.h"
 
-
  void push(Stack* stack, int value) {
 	StackElement* element = malloc(sizeof(StackElement));
 	if (element == NULL) {
