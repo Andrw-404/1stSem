@@ -3,8 +3,6 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-#include <assert.h>
-#include <stdio.h>
 
 List* createList() {
 	List* list = malloc(sizeof(List));
