@@ -5,7 +5,7 @@
 
 int main(void) {
     if (!testAdd() || !testAddLast() || !testCreateList() || !testGetValue()
-        || !testIsEmpty() || !testIsLast() || !testSetValue()) {
+        || !testIsEmpty() || !testIsLast() || !testSetValue() || !testMakeACircularList()) {
         printf("!!!the list did not pass the tests!!!\n\n\n");
         return NULL;
     }
