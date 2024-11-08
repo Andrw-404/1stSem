@@ -104,3 +104,15 @@ void removeList(List* list) {
 	}
 	free(list);
 }
+
+void makeACircularList(List* list) {
+	if (isEmpty(list)) {
+		return;
+	}
+
+	Position last = list->head->next;
+	while (last->next != NULL) {
+		last = last->next;
+	}
+	last->next = list->head->next;
+}

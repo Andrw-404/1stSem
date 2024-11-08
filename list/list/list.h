@@ -45,3 +45,6 @@ void addLast(List* list, Value value);
 
 //removes the entire list and frees memory
 void removeList(List* list);
+
+//function converting a single-linked list into a cyclic list
+void makeACircularList(List* list);
