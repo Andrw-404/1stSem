@@ -84,3 +84,18 @@ bool testAddLast() {
     addLast(list, 20);
     return !(isEmpty(list) || list->head->next->next->value != 20);
 }
+
+bool testMakeACircularList() {
+    List* list = createList();
+    addLast(list, 10);
+    addLast(list, 30);
+    addLast(list, 50);
+    if (isEmpty(list) || list->head->next->value != 10 || list->head->next->next->value != 30 || list->head->next->next->next->value != 50) {
+        return false;
+    }
+    if (list->head->next->next->next->next != NULL) {
+        return false;
+    }
+    makeACircularList(list);
+    return (list->head->next->next->next->next->value == 10);
+}
