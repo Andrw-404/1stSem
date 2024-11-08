@@ -8,17 +8,15 @@ int reckoning(List* list, int m) {
         return -1;
     }
     Position current = list->head->next;
-
-    while (current->next != current) {
-        for (int i = 1; i < m; ++i) {
+    while (current != current->next) {
+        for (int i = 1; i < m - 1; ++i) {
             current = current->next;
         }
-        Position removeElement = current->next;
-        current->next = removeElement->next;
-        free(removeElement);
+        Position kill = current->next;
+        current->next = kill->next;
+        free(kill);
         current = current->next;
     }
-    int last = current->value;
-    free(current);
-    return last;
+    return current->value;
 }
+    
