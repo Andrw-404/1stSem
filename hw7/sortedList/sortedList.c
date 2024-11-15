@@ -35,8 +35,8 @@ void removeElement(Value n, List* list) {
     }
 
     if (current->next == NULL) {
-        printf("Такой элемент не найден\n");
-
+        printf("\n!!!Такой элемент не найден\n");
+        return;
     }
     
     Position temp = current->next;
