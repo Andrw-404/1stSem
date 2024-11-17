@@ -111,7 +111,7 @@ void makeACircularList(List* list) {
 	}
 
 	Position last = list->head->next;
-	while (last->next != list->head->next && last->next != NULL) {
+	while (last->next != NULL) {
 		last = last->next;
 	}
 	last->next = list->head->next;
