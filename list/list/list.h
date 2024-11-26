@@ -2,21 +2,18 @@
 
 #include <stdbool.h>
 
+typedef struct ListElement ListElement;
+
+typedef struct List List;
+
 typedef int Value;
-
-typedef struct ListElement {
-	Value value;
-	struct ListElement* next;
-} ListElement;
-
-typedef struct List {
-	ListElement* head;
-} List;
 
 typedef ListElement* Position;
 
+//function to create a list
 List* createList(void);
 
+//function returning the head of the list
 Position first(List* list);
 
 //function for adding an element
@@ -48,3 +45,9 @@ void removeList(List* list);
 
 //function converting a single-linked list into a cyclic list
 void makeACircularList(List* list);
+
+//function that returns the element after the element passed to the function
+Position getNext(Position position);
+
+//function that returns an item by its sequence number in the list
+Position getPositionByNumber(List* list, int number);

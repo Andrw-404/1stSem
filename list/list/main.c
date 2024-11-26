@@ -4,9 +4,7 @@
 #include <stdio.h>
 
 int main(void) {
-    if (!testAdd() || !testAddLast() || !testCreateList() || !testGetValue()
-        || !testIsEmpty() || !testIsLast() || !testSetValue() || !testMakeACircularList()) {
-        printf("!!!the list did not pass the tests!!!\n\n\n");
+    if (!runTests()) {
         return NULL;
     }
     List* list = createList();
@@ -14,6 +12,8 @@ int main(void) {
     addLast(list, 30);
     addLast(list, 50);
     printList(list);
-    setValue(list, list->head->next->next, 432);
+    setValue(list, getPositionByNumber(list, 3), 432);
     printList(list);
+    makeACircularList(list);
+    addLast(list, 65);
 }
