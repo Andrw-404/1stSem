@@ -5,6 +5,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+typedef struct ListElement {
+	Value value;
+	struct ListElement* next;
+} ListElement;
+
+typedef struct List {
+	ListElement* head;
+	ListElement* tail;
+} List;
+
 List* createList() {
 	List* list = malloc(sizeof(List));
 	if (list == NULL) {
@@ -16,11 +26,12 @@ List* createList() {
 		return NULL;
 	}
 	list->head->next = NULL;
+	list->tail = list->head;
 	return list;
 }
 
 Position first(List* list) {
-	return list ? list->head : NULL;
+	return list->head;
 }
 
 void add(List* list, Position position, Value value) {
@@ -41,6 +52,10 @@ Value getValue(List* list, Position position) {
 		return (Value)0;
 	}
 	return position->value;
+}
+
+Position getNext(Position position) {
+	return position->next;
 }
 
 void setValue(List* list, Position position, Value value) {
@@ -77,19 +92,25 @@ void addLast(List* list, Value value) {
 		return;
 	}
 	ListElement* element = malloc(sizeof(ListElement));
+	if (element == NULL) {
+		return;
+	}
 	element->value = value;
-	element->next = NULL;
 
-	if (isEmpty(list)) {
+	if (list->tail == list->head) {
 		list->head->next = element;
+		element->next = NULL;
+	}
+	else  if (list->head->next == list->tail->next) {
+		list->tail->next = element;
+		element->next = list->head->next;
 	}
 	else {
-		ListElement* current = list->head;
-		while (current->next != NULL) {
-			current = current->next;
-		}
-		current->next = element;
+		list->tail->next = element;
+		element->next = NULL;
 	}
+
+	list->tail = element;
 }
 
 void removeList(List* list) {
@@ -106,13 +127,22 @@ void removeList(List* list) {
 }
 
 void makeACircularList(List* list) {
-	if (isEmpty(list)) {
+	if (list->head == list->tail || list == NULL) {
 		return;
 	}
+	list->tail->next = list->head->next;
+}
 
-	Position last = list->head->next;
-	while (last->next != NULL) {
-		last = last->next;
+Position getPositionByNumber(List* list, int number) {
+	if (list == NULL || number <= 0) {
+		return NULL;
 	}
-	last->next = list->head->next;
+	Position current = list->head->next;
+	for (int i = 1; current != NULL; ++i) {
+		if (i == number) {
+			return current;
+		}
+		current = current->next;
+	}
+	return NULL;
 }
