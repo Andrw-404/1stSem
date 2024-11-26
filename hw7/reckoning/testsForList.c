@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 bool testCreateList() {
     List* list = createList();
     return (list != NULL && isEmpty(list));
@@ -12,53 +13,54 @@ bool testCreateList() {
 
 bool testAdd() {
     List* list = createList();
-    add(list, list->head, 10);
-    if (isEmpty(list) || list->head->next->value != 10) {
+    add(list, first(list), 10);
+    if (isEmpty(list) || getValue(list, getNext(first(list))) != 10) {
         return false;
     }
 
-    add(list, list->head->next, 20);
-    return !(isEmpty(list) || list->head->next->value != 10 || list->head->next->next->value != 20);
+    add(list, getNext(first(list)), 20);
+    return !(isEmpty(list) || getValue(list, getNext(first(list))) != 10 
+        || getValue(list, getPositionByNumber(list, 2)) != 20);
 }
 
 bool testGetValue() {
     List* list = createList();
-    add(list, list->head, 10);
-    add(list, list->head->next, 20);
+    add(list, first(list), 10);
+    add(list, getNext(first(list)), 20);
 
-    Value testValue = getValue(list, list->head->next);
+    Value testValue = getValue(list, getNext(first(list)));
     if (testValue != 10) {
         return false;
     }
 
-    testValue = getValue(list, list->head->next->next);
+    testValue = getValue(list, getPositionByNumber(list, 2));
     return testValue == 20;
 }
 
 bool testSetValue() {
     List* list = createList();
-    add(list, list->head, 10);
-    add(list, list->head->next, 20);
+    add(list, first(list), 10);
+    add(list, getNext(first(list)), 20);
 
-    setValue(list, list->head->next, 30);
-    if (getValue(list, list->head->next) != 30) {
+    setValue(list, getPositionByNumber(list, 1), 30);
+    if (getValue(list, getPositionByNumber(list, 1)) != 30) {
         return false;
     }
 
-    setValue(list, list->head->next->next, 40);
-    return getValue(list, list->head->next->next) == 40;
+    setValue(list, getPositionByNumber(list, 2), 40);
+    return getValue(list, getPositionByNumber(list, 2)) == 40;
 }
 
 bool testIsLast() {
     List* list = createList();
-    add(list, list->head, 10);
-    add(list, list->head->next, 20);
+    add(list, first(list), 10);
+    add(list, getNext(first(list)), 20);
 
-    if (!isLast(list, list->head->next->next)) {
+    if (!isLast(list, getPositionByNumber(list, 2))) {
         return false;
     }
 
-    return !isLast(list, list->head->next);
+    return !isLast(list, getNext(first(list)));
 }
 
 bool testIsEmpty() {
@@ -67,7 +69,7 @@ bool testIsEmpty() {
         return false;
     }
 
-    add(list, list->head, 10);
+    add(list, first(list), 10);
     if (isEmpty(list)) {
         return false;
     }
@@ -77,12 +79,12 @@ bool testIsEmpty() {
 bool testAddLast() {
     List* list = createList();
     addLast(list, 10);
-    if (isEmpty(list) || list->head->next->value != 10) {
+    if (isEmpty(list) || getValue(list, getPositionByNumber(list, 1)) != 10) {
         return false;
     }
 
     addLast(list, 20);
-    return !(isEmpty(list) || list->head->next->next->value != 20);
+    return !(isEmpty(list) || getValue(list, getPositionByNumber(list, 2)) != 20);
 }
 
 bool testMakeACircularList() {
@@ -90,12 +92,34 @@ bool testMakeACircularList() {
     addLast(list, 10);
     addLast(list, 30);
     addLast(list, 50);
-    if (isEmpty(list) || list->head->next->value != 10 || list->head->next->next->value != 30 || list->head->next->next->next->value != 50) {
+    if (isEmpty(list) || getValue(list, getNext(first(list))) != 10 || 
+        getValue(list, getPositionByNumber(list, 2)) != 30 || 
+        getValue(list, getPositionByNumber(list, 3)) != 50) {
         return false;
     }
-    if (list->head->next->next->next->next != NULL) {
+    if (getPositionByNumber(list, 4) != NULL) {
         return false;
     }
     makeACircularList(list);
-    return (list->head->next->next->next->next->value == 10);
+    return (getNext(getPositionByNumber(list, 3)) == getNext(first(list)));
+}
+
+bool runTests() {
+    bool tests[] = {
+        testCreateList(),
+        testAdd(),
+        testGetValue(),
+        testSetValue(),
+        testIsLast(),
+        testIsEmpty(),
+        testAddLast(),
+        testMakeACircularList()
+    };
+    for (int i = 1; i < 8; ++i) {
+        if (!tests[i]) {
+            printf("Test %d failed\n\n", i);
+            return false;
+        }
+    }
+    return true;
 }

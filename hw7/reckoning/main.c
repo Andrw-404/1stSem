@@ -7,9 +7,7 @@
 
 int main(void) {
     setlocale(LC_ALL, "RUS");
-    if (!testAdd() || !testAddLast() || !testCreateList() || !testGetValue()
-        || !testIsEmpty() || !testIsLast() || !testSetValue() || !testMakeACircularList()) {
-        printf("!!!the list did not pass the tests!!!\n\n\n");
+    if (!runTests()) {
         return NULL;
     }
 
@@ -22,11 +20,12 @@ int main(void) {
     printf("\n");
     printf("¬ведите интервал, через который удал€етс€ каждый следующий участник в кругу: ");
     scanf_s("%d", &m);
+    Position current = first(list);
+    makeACircularList(list);
     for (int i = 1; i <= n; ++i) {
         addLast(list, i);
     }
-    
-    makeACircularList(list);
+   
     int k = reckoning(list, m);
 
     printf("\nЌомер начальной позиции воина, который должен будет остатьс€ последним: %d\n\n", k);
