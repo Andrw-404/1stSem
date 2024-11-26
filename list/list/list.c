@@ -146,3 +146,10 @@ Position getPositionByNumber(List* list, int number) {
 	}
 	return NULL;
 }
+
+void removeElement(List* list, Position position) {
+	ListElement* tmp = position->next;
+	position->next = position->next->next;
+	free(tmp);
+	tmp = NULL;
+}

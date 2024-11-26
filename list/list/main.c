@@ -14,6 +14,7 @@ int main(void) {
     printList(list);
     setValue(list, getPositionByNumber(list, 3), 432);
     printList(list);
-    makeACircularList(list);
     addLast(list, 65);
+    makeACircularList(list);
+    removeElement(list, getPositionByNumber(list, 1));
 }

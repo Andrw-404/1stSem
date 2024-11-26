@@ -51,3 +51,6 @@ Position getNext(Position position);
 
 //function that returns an item by its sequence number in the list
 Position getPositionByNumber(List* list, int number);
+
+//function deleting the element after the element passed to the function
+void removeElement(List* list, Position position);
