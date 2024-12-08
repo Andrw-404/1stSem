@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "list.h"
 
 #include <stdlib.h>
@@ -21,12 +20,7 @@ List* createList() {
 	if (list == NULL) {
 		return NULL;
 	}
-	list->head = calloc(1, sizeof(ListElement));
-	if (list->head == NULL) {
-		free(list);
-		return NULL;
-	}
-	list->head->next = NULL;
+	list->head = NULL;
 	return list;
 }
 
@@ -35,13 +29,20 @@ void addLast(List* list, char* key) {
 		return;
 	}
 	ListElement* element = malloc(sizeof(ListElement));
-	char* string = malloc(sizeof(key));
-	strcpy(string, key);
-	element->key = string;
+	if (element == NULL) {
+		printf("error of memory allocation for a new item\n");
+		return;
+	}
+	element->key = malloc((strlen(key) + 1)* sizeof(char));
+	if (element->key == NULL) {
+		printf("key memory allocation error\n");
+		return;
+	}
+	strcpy(element->key, key);
 	element->next = NULL;
 	element->count = 1;
-	if (isEmpty(list)) {
-		list->head->next = element;
+	if (list->head == NULL) {
+		list->head = element;
 	}
 	else {
 		ListElement* current = list->head;
@@ -59,6 +60,7 @@ void removeList(List* list) {
 	ListElement* current = list->head;
 	while (current != NULL) {
 		ListElement* next = current->next;
+		free(current->key);
 		free(current);
 		current = next;
 	}
@@ -66,11 +68,11 @@ void removeList(List* list) {
 }
 
 bool isEmpty(List* list) {
-	return list == NULL || list->head->next == NULL;
+	return list == NULL || list->head == NULL;
 }
 
 ListElement* getFirst(List* list) {
-	return list ? list->head->next : NULL;
+	return list ? list->head : NULL;
 }
 
 ListElement* getNext(Position position) {
@@ -98,6 +100,9 @@ int getListLength(List* list) {
 	}
 	int length = 0;
 	ListElement* current = getFirst(list);
+	if (current == NULL) {
+		return 0;
+	}
 	while (current != NULL) {
 		++length;
 		current = getNext(current);
