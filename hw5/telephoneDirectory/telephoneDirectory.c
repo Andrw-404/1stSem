@@ -51,20 +51,19 @@ void addPerson(Person phoneDirectory[], int* count, char* phone, char* name) {
 
     strncpy(phoneDirectory[*count].name, name, maxNameLength);
     strncpy(phoneDirectory[*count].phone, phone, maxPhoneLength);
-    phoneDirectory[*count].name[maxNameLength - 1] = '\0';
-    phoneDirectory[*count].phone[maxPhoneLength - 1] = '\0';
     ++(*count);
 }
 
 void printAllPerson(Person phoneDirectory[], int count) {
     if (count == 0) {
         printf("\nСправочник пуст\n\n");
+        return;
     }
-    else {
-        for (int i = 0; i < count; ++i) {
-            printf("%d. Имя: %s, Номер: %s\n", i + 1, phoneDirectory[i].name, phoneDirectory[i].phone);
-        }
+ 
+    for (int i = 0; i < count; ++i) {
+        printf("%d. Имя: %s, Номер: %s\n", i + 1, phoneDirectory[i].name, phoneDirectory[i].phone);
     }
+    
 }
 
 char* findPhone(Person phoneDirectory[], int count, char* name) {
