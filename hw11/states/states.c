@@ -2,8 +2,6 @@
 
 #include <stdio.h>
 
-int visited[100];
-
 typedef struct State {
     int capital;
     int cities[100];
@@ -12,16 +10,16 @@ typedef struct State {
 
 State arrayWithState[100];
 
-void initializationOfStates(State* states, int* capitals, int k) {
+void initializationOfStates(State* arrayWithStates, int* capitals, int* visited, int k) {
     for (int i = 0; i < k;  i++) {
         visited[capitals[i]] = 1;
-        states[i].capital = capitals[i];
-        states[i].cities[0] = capitals[i];
-        states[i].cityCount = 1;
+        arrayWithStates[i].capital = capitals[i];
+        arrayWithStates[i].cities[0] = capitals[i];
+        arrayWithStates[i].cityCount = 1;
     }
 }
 
-int findNearestCity(State* state, int n, int dist[100][100], int* visited) {
+int findNearestCity(State* state, int n, int dist[][100], int* visited) {
     int minDist = INF;
     int nearestCity = -1;
 
@@ -37,23 +35,23 @@ int findNearestCity(State* state, int n, int dist[100][100], int* visited) {
     return nearestCity;
 }
 
-void distributeCities(State* states, int n, int dist[100][100], int k) {
+void distributeCities(State* arrayWithStates, int n, int dist[][100], int* visited, int k) {
     for (int i = 0; i < n - k; ++i) {
         int nearestState = -1;
         int nearestCity = -1;
         int minDist = INF;
         for (int q = 0; q < k; ++q) {
-            int city = findNearestCity(&states[q], n, dist, visited);
-            if (city != -1 && dist[states[q].cities[states[q].cityCount - 1]][city] < minDist) {
-                minDist = dist[states[q].cities[states[q].cityCount - 1]][city];
+            int city = findNearestCity(&arrayWithStates[q], n, dist, visited);
+            if (city != -1 && dist[arrayWithStates[q].cities[arrayWithStates[q].cityCount - 1]][city] < minDist) {
+                minDist = dist[arrayWithStates[q].cities[arrayWithStates[q].cityCount - 1]][city];
                 nearestState = q;
                 nearestCity = city;
             }
         }
         if (nearestCity != -1) {
             visited[nearestCity] = 1;
-            states[nearestState].cities[states[nearestState].cityCount] = nearestCity;
-            states[nearestState].cityCount++;
+            arrayWithStates[nearestState].cities[arrayWithStates[nearestState].cityCount] = nearestCity;
+            arrayWithStates[nearestState].cityCount++;
         }
     }
 }
@@ -68,7 +66,7 @@ void printStates(State* states, int k) {
     }
 }
 
-void floydWarshall(int n, int dist[100][100]) {
+void floydWarshall(int n, int dist[][100]) {
     for (int k = 0; k < n; k++) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
