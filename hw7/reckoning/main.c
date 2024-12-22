@@ -21,7 +21,6 @@ int main(void) {
     printf("Введите интервал, через который удаляется каждый следующий участник в кругу: ");
     scanf_s("%d", &m);
     Position current = first(list);
-    makeACircularList(list);
     for (int i = 1; i <= n; ++i) {
         addLast(list, i);
     }

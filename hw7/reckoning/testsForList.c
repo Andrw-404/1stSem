@@ -51,18 +51,6 @@ bool testSetValue() {
     return getValue(list, getPositionByNumber(list, 2)) == 40;
 }
 
-bool testIsLast() {
-    List* list = createList();
-    add(list, first(list), 10);
-    add(list, getNext(first(list)), 20);
-
-    if (!isLast(list, getPositionByNumber(list, 2))) {
-        return false;
-    }
-
-    return !isLast(list, getNext(first(list)));
-}
-
 bool testIsEmpty() {
     List* list = createList();
     if (!isEmpty(list)) {
@@ -87,35 +75,16 @@ bool testAddLast() {
     return !(isEmpty(list) || getValue(list, getPositionByNumber(list, 2)) != 20);
 }
 
-bool testMakeACircularList() {
-    List* list = createList();
-    addLast(list, 10);
-    addLast(list, 30);
-    addLast(list, 50);
-    if (isEmpty(list) || getValue(list, getNext(first(list))) != 10 || 
-        getValue(list, getPositionByNumber(list, 2)) != 30 || 
-        getValue(list, getPositionByNumber(list, 3)) != 50) {
-        return false;
-    }
-    if (getPositionByNumber(list, 4) != NULL) {
-        return false;
-    }
-    makeACircularList(list);
-    return (getNext(getPositionByNumber(list, 3)) == getNext(first(list)));
-}
-
 bool runTests() {
     bool tests[] = {
         testCreateList(),
         testAdd(),
         testGetValue(),
         testSetValue(),
-        testIsLast(),
         testIsEmpty(),
-        testAddLast(),
-        testMakeACircularList()
+        testAddLast()
     };
-    for (int i = 1; i < 8; ++i) {
+    for (int i = 1; i < 6; ++i) {
         if (!tests[i]) {
             printf("Test %d failed\n\n", i);
             return false;

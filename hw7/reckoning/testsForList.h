@@ -14,17 +14,11 @@ bool testGetValue();
 //tests a function that changes the value of an element by position
 bool testSetValue();
 
-//tests a function that checks whether an element is the last element in the list
-bool testIsLast();
-
 //tests a function that checks if the list is empty
 bool testIsEmpty();
 
 //tests the function of adding an element to the end of the list
 bool testAddLast();
-
-//tests a function that makes the list cyclic
-bool testMakeACircularList();
 
 //function for running tests
 bool runTests();

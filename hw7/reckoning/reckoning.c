@@ -17,14 +17,11 @@ int reckoning(List* list, int m) {
             previous = current;
             current = getNext(current);
         }
-
-        Position nextPrev = getNext(previous);
-        nextPrev = getNext(current);
+        setNext(previous, getNext(current));
         free(current);
-        current = nextPrev;
+        current = getNext(previous);
     }
+
     int result = getValue(list, current);
-    free(current);
     return result;
 }
-    

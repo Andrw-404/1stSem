@@ -25,9 +25,6 @@ Value getValue(List* list, Position position);
 //function for changing the value of an element
 void setValue(List* list, Position position, Value value);
 
-//function that checks whether an element is the last
-bool isLast(List* list, Position position);
-
 //function checking the correctness of an item in the list
 bool isValid(List* list, Position position);
 
@@ -43,13 +40,14 @@ void addLast(List* list, Value value);
 //removes the entire list and frees memory
 void removeList(List* list);
 
-//function converting a single-linked list into a cyclic list
-void makeACircularList(List* list);
-
 //function that returns the element after the element passed to the function
 Position getNext(Position position);
 
 //function that returns an item by its sequence number in the list
 Position getPositionByNumber(List* list, int number);
 
+//function returning the tail of the list
 Position getTail(List* list);
+
+//function that changes the pointer to the next element
+void setNext(ListElement* element, ListElement* next);
