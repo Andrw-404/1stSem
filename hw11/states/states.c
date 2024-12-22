@@ -1,11 +1,11 @@
-#define INF 10000000
-
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "states.h"
+
 typedef struct State {
     int capital;
-    int cities[10];
+    int cities[CITIES];
     int cityCount;
 } State;
 
@@ -19,8 +19,8 @@ void initializationOfStates(State** arrayWithStates, int* capitals, int* visited
     }
 }
 
-int findNearestCity(State* state, int n, int dist[][100], int* visited) {
-    int minDist = INF;
+int findNearestCity(State* state, int n, int dist[][CITIES], int* visited) {
+    int minDist = INFINITY;
     int nearestCity = -1;
 
     for (int i = 0; i < state->cityCount; ++i) {
@@ -35,27 +35,19 @@ int findNearestCity(State* state, int n, int dist[][100], int* visited) {
     return nearestCity;
 }
 
-void distributeCities(State** arrayWithStates, int n, int dist[][100], int* visited, int k) {
+void distributeCities(State** arrayWithStates, int n, int dist[][CITIES], int* visited, int k) {
     for (int i = 0; i < n - k; ++i) {
-        int nearestState = -1;
-        int nearestCity = -1;
-        int minDist = INF;
         for (int q = 0; q < k; ++q) {
-            int city = findNearestCity(arrayWithStates[q], n, dist, visited);
-            if (city != -1 && dist[arrayWithStates[q]->cities[arrayWithStates[q]->cityCount - 1]][city] < minDist) {
-                minDist = dist[arrayWithStates[q]->cities[arrayWithStates[q]->cityCount - 1]][city];
-                nearestState = q;
-                nearestCity = city;
+            int nearestCity = findNearestCity(arrayWithStates[q], n, dist, visited);
+
+            if (nearestCity != -1) {
+                visited[nearestCity] = 1;
+                arrayWithStates[q]->cities[arrayWithStates[q]->cityCount] = nearestCity;
+                arrayWithStates[q]->cityCount++;
             }
-        }
-        if (nearestCity != -1) {
-            visited[nearestCity] = 1;
-            arrayWithStates[nearestState]->cities[arrayWithStates[nearestState]->cityCount] = nearestCity;
-            arrayWithStates[nearestState]->cityCount++;
         }
     }
 }
-
 
 void printStates(State** arrayWithStates, int k) {
     for (int i = 0; i < k; ++i) {
@@ -67,7 +59,7 @@ void printStates(State** arrayWithStates, int k) {
     }
 }
 
-void floydWarshall(int n, int dist[][36]) {
+void floydWarshall(int n, int dist[][CITIES]) {
     for (int k = 0; k < n; k++) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -77,4 +69,23 @@ void floydWarshall(int n, int dist[][36]) {
             }
         }
     }
+}
+
+void clean(State** arrayWithStates, int k, int dist[][CITIES]) {
+    for (int i = 0; i < k; i++) {
+        free(arrayWithStates[i]);
+    }
+    free(dist);
+}
+
+int getCapital(State** arrayWithStates, int m) {
+    return arrayWithStates[m]->capital;
+}
+
+int getCityCount(State** arrayWithStates, int m) {
+    return arrayWithStates[m]->cityCount;
+}
+
+int getCityByNumberInState(State** arrayWithStates, int m, int x) {
+    return arrayWithStates[m]->cities[x];
 }
