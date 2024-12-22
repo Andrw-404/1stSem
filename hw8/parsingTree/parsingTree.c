@@ -42,11 +42,16 @@ Node* expressionParse(FILE* file) {
         skipSpace(file);
         char operation = fgetc(file);
 
+        skipSpace(file);
         Node* leftOperand = expressionParse(file);
+
+        skipSpace(file);
         Node* rightOperand = expressionParse(file);
 
         skipSpace(file);
-        fgetc(file);
+        if (fgetc(file) != ')') {
+            exit(1);
+        }
         return createOperationNode(operation, leftOperand, rightOperand);
     }
     else {
@@ -56,7 +61,6 @@ Node* expressionParse(FILE* file) {
         return createNumberNode(value);
     }
 }
-
 
 int calculate(Node* node) {
     if (node->operation == '\0') {
