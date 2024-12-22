@@ -2,10 +2,15 @@
 #include <locale.h>
 #include <string.h>
 
+#include "test.h"
 #include "AVLTree.h"
 
 int main(void) {
     setlocale(LC_ALL, "RUS");
+    if (!runTests()) {
+        return -1;
+    }
+
     Node* root = NULL;
     int choice = 0;
     char key[100] = "";
@@ -91,9 +96,6 @@ int main(void) {
             }
         case(5):
             printf("Выход из программы...\n\n\n");
-            break;
-        case(7):
-            printTree(root, getHeight(root));
             break;
         default:
             printf("Неверный ввод:(\n");
