@@ -26,9 +26,9 @@ bool testIsEmpty() {
 }
 
 bool testAddContact() {
-    List* list = createList();
-    addContact(list, "Andrew", "1111");
-    addContact(list, "Boris", "2222");
+    List* testList = createList();
+    addContact(testList, "Andrew", "1111");
+    addContact(testList, "Boris", "2222");
 
-    return !(isEmpty(list) || strcmp(list->head->name, "Boris") != 0 || strcmp(list->head->next->name, "Andrew") != 0);
+    return !(isEmpty(testList) || strcmp(getName(getFirst(testList)),"Boris") != 0 || strcmp(getName(getNext(getFirst(testList))), "Andrew") != 0);
 }

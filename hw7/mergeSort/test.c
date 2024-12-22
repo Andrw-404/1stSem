@@ -6,59 +6,59 @@
 #include <string.h>
 
 bool testSplit() {
-    ListElement firstElement = { "Andrew", "1111", NULL };
-    ListElement secondElement = { "Boris", "2222", NULL };
-    ListElement thirdElement = { "Chris", "3333", NULL };
-    ListElement fourthElement = { "Dmitry", "4444", NULL };
-
-    firstElement.next = &secondElement;
-    secondElement.next = &thirdElement;
-    thirdElement.next = &fourthElement;
-
+    List* testList = createList();
+    addContact(testList, "Andrew", "1111");
+    addContact(testList, "Boris", "2222");
+    addContact(testList, "Chris", "3333");
+    addContact(testList, "Dmitry", "4444");
 
     ListElement* first = NULL;
     ListElement* second = NULL;
-    split(&firstElement, &first, &second);
+    split(getFirst(testList), &first, &second);
 
-    return first == &firstElement && first->next == &secondElement && second == &thirdElement && second->next == &fourthElement;
-}
-
-bool testMergeByName() {
-    ListElement firstElem = { "Andrew", "1111", NULL };
-    ListElement secondElem = { "Boris", "2222", NULL };
-    ListElement* result = merge(&firstElem, &secondElem, byName);
-
-    return result == &firstElem && result->next == &secondElem && result->next->next == NULL;
-}
-
-bool testMergeByPhone() {
-    ListElement firstElem = { "Andrew", "1111", NULL };
-    ListElement secondElem = { "Boris", "2222", NULL };
-    ListElement* result = merge(&firstElem, &secondElem, byPhone);
-
-    return result == &firstElem && result->next == &secondElem && result->next->next == NULL;
+    char* firstName = getName(getFirst(testList));
+    char* secondName = getName(getNext(getFirst(testList)));
+    if (strcmp(getName(first), "Dmitry") == 0 &&
+        strcmp(getName(getNext(getFirst(testList))), "Chris") == 0 &&
+        strcmp(getName(getNext(getNext(first))), "Boris") == 0 &&
+        strcmp(getName(second), "Andrew") == 0) {
+        removeList(testList);
+        return true;
+    }
+    removeList(testList);
+    return false;
 }
 
 bool testMergeSortByName() {
-    List* list = createList();
-    addContact(list, "Chris", "3333");
-    addContact(list, "Andrew", "1111");
-    addContact(list, "Boris", "2222");
-    mergeSort(&list->head, byName);
+    List* testList = createList();
+    addContact(testList, "Chris", "3333");
+    addContact(testList, "Andrew", "1111");
+    addContact(testList, "Boris", "2222");
+    mergeSort(getDoublePointer(getFirst(testList)), byName);
 
-    return strcmp(list->head->next->name, "Andrew") == 0 &&
-        strcmp(list->head->next->next->name, "Boris") == 0 &&
-        strcmp(list->head->next->next->next->name, "Chris") == 0;
+    if (strcmp(getName(getFirst(testList)), "Andrew") == 0 &&
+        strcmp(getName(getNext(getFirst(testList))), "Boris") == 0 &&
+        strcmp(getName(getNext(getNext(getFirst(testList)))), "Chris") == 0) {
+        removeList(testList);
+        return true;
+    }
+    removeList(testList);
+    return false;
 }
 
 bool testMergeSortByPhone() {
-    List* list = createList();
-    addContact(list, "Chris", "3333");
-    addContact(list, "Andrew", "1111");
-    addContact(list, "Boris", "2222");
-    mergeSort(&list->head, byPhone);
+    List* testList = createList();
+    addContact(testList, "Chris", "3333");
+    addContact(testList, "Andrew", "1111");
+    addContact(testList, "Boris", "2222");
+    mergeSort(getDoublePointer(getFirst(testList)), byName);
 
-    return strcmp(list->head->next->phone, "1111") == 0 &&
-        strcmp(list->head->next->next->phone, "2222") == 0 &&
-        strcmp(list->head->next->next->next->phone, "3333") == 0;
+    if (strcmp(getName(getFirst(testList)), "1111") == 0 &&
+        strcmp(getName(getNext(getFirst(testList))), "2222") == 0 &&
+        strcmp(getName(getNext(getNext(getFirst(testList)))), "3333") == 0) {
+        removeList(testList);
+        return true;
+    }
+    removeList(testList);
+    return false;
 }

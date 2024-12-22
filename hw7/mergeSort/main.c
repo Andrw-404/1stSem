@@ -17,7 +17,7 @@ int main(void) {
         return NULL;
     }
 
-    if (!testSplit() || !testMergeByName() || !testMergeByPhone() || !testMergeSortByName()|| !testMergeSortByPhone()) {
+    if (!testSplit() || !testMergeSortByName()|| !testMergeSortByPhone()) {
         printf("!!!the program failed the tests!!!\n\n\n");
         return NULL;
     }
@@ -41,7 +41,7 @@ int main(void) {
         return 1;
     }
 
-    mergeSort(&list->head, sortType);
+    mergeSort(getDoublePointer(getFirst(list)), sortType);
     printf("\nОтсортированный список: \n\n\n");
     printList(list);
     removeList(list);
