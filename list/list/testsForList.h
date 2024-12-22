@@ -25,3 +25,6 @@ bool testAddLast();
 
 //tests a function that makes the list cyclic
 bool testMakeACircularList();
+
+//function for running tests
+bool runTests();
