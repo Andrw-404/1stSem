@@ -1,6 +1,4 @@
-#include "sortedList.h"
 #include "list.h"
-#include "testsForTask.h"
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -16,12 +14,17 @@ bool testForAdd() {
     if (isEmpty(listForAddTest)) {
         return false;
     }
-    return (listForAddTest->head->next->value == -19 &&
-        listForAddTest->head->next->next->value == -1 &&
-        listForAddTest->head->next->next->next->value == 0 &&
-        listForAddTest->head->next->next->next->next->value == 4 &&
-        listForAddTest->head->next->next->next->next->next->value == 13 &&
-        listForAddTest->head->next->next->next->next->next->next->value == 17);
+    if (getValue(listForAddTest, GetRealFirstElement(listForAddTest)) == -19 &&
+        getValue(listForAddTest, getPositionByNumber(listForAddTest, 2)) == -1 &&
+        getValue(listForAddTest, getPositionByNumber(listForAddTest, 3)) == 0 &&
+        getValue(listForAddTest, getPositionByNumber(listForAddTest, 4)) == 4 &&
+        getValue(listForAddTest, getPositionByNumber(listForAddTest, 5)) == 13 &&
+        getValue(listForAddTest, getPositionByNumber(listForAddTest, 6)) == 17) {
+        removeList(listForAddTest);
+        return true;
+    }
+    removeList(listForAddTest);
+    return false;
 }
 
 bool testForRemove() {
@@ -33,7 +36,7 @@ bool testForRemove() {
     addElements(-19, listForRemoveTest);
     addElements(4, listForRemoveTest);
 
-    if (isEmpty(listForRemoveTest) || listForRemoveTest->head->next == NULL) {
+    if (isEmpty(listForRemoveTest) || GetRealFirstElement(listForRemoveTest) == NULL) {
         return false;
     }
     removeElement(13, listForRemoveTest);
@@ -43,9 +46,16 @@ bool testForRemove() {
     removeElement(-19, listForRemoveTest);
     removeElement(4, listForRemoveTest);
 
-    if (listForRemoveTest->head->next != NULL) {
+    if (getNext(first(listForRemoveTest)) != NULL) {
+        removeList(listForRemoveTest);
         return false;
     }
-
-    return isEmpty(listForRemoveTest);
+    if (isEmpty(listForRemoveTest)) {
+        removeList(listForRemoveTest);
+        return true;
+    }
+    else {
+        removeList(listForRemoveTest);
+        return false;
+    }
 }

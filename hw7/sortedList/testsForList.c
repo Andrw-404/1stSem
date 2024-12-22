@@ -5,97 +5,124 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 bool testCreateList() {
     List* list = createList();
-    return (list != NULL && isEmpty(list));
-}
-
-bool testAdd() {
-    List* list = createList();
-    add(list, list->head, 10);
-    if (isEmpty(list) || list->head->next->value != 10) {
-        return false;
+    if (list != NULL && isEmpty(list)) {
+        removeList(list);
+        return true;
     }
-
-    add(list, list->head->next, 20);
-    return !(isEmpty(list) || list->head->next->value != 10 || list->head->next->next->value != 20);
+    removeList(list);
+    return false;
 }
 
 bool testGetValue() {
     List* list = createList();
-    add(list, list->head, 10);
-    add(list, list->head->next, 20);
+    addElements(10, list);
+    addElements(30, list);
 
-    Value testValue = getValue(list, list->head->next);
+    Value testValue = getValue(list, getNext(first(list)));
     if (testValue != 10) {
+        removeList(list);
         return false;
     }
 
-    testValue = getValue(list, list->head->next->next);
-    return testValue == 20;
+    if (30 == getValue(list, getPositionByNumber(list, 2))) {
+        removeList(list);
+        return true;
+    }
+    removeList(list);
+    return false;
 }
 
 bool testSetValue() {
     List* list = createList();
-    add(list, list->head, 10);
-    add(list, list->head->next, 20);
+    addElements(10, list);
+    addElements(30, list);
 
-    setValue(list, list->head->next, 30);
-    if (getValue(list, list->head->next) != 30) {
+    setValue(list, getPositionByNumber(list, 1), 30);
+    if (getValue(list, getPositionByNumber(list, 1)) != 30) {
+        removeList(list);
         return false;
     }
 
-    setValue(list, list->head->next->next, 40);
-    return getValue(list, list->head->next->next) == 40;
+    setValue(list, getPositionByNumber(list, 2), 40);
+    if (getValue(list, getPositionByNumber(list, 2)) == 40) {
+        removeList(list);
+        return true;
+    }
+    removeList(list);
+    return false;
 }
 
 bool testIsLast() {
     List* list = createList();
-    add(list, list->head, 10);
-    add(list, list->head->next, 20);
+    addElements(10, list);
+    addElements(30, list);
 
-    if (!isLast(list, list->head->next->next)) {
+    if (!isLast(list, getPositionByNumber(list, 2))) {
+        removeList(list);
         return false;
     }
 
-    return !isLast(list, list->head->next);
+    if (!isLast(list, getNext(first(list)))) {
+        removeList(list);
+        return true;
+    }
+    removeList(list);
+    return false;
 }
 
 bool testIsEmpty() {
     List* list = createList();
     if (!isEmpty(list)) {
+        removeList(list);
         return false;
     }
 
-    add(list, list->head, 10);
+    addElements(10, list);
     if (isEmpty(list)) {
+        removeList(list);
         return false;
     }
-    return !isEmpty(list);
+    if (!isEmpty(list)) {
+        removeList(list);
+        return true;
+    }
+    removeList(list);
+    return false;
 }
 
 bool testAddLast() {
     List* list = createList();
     addLast(list, 10);
-    if (isEmpty(list) || list->head->next->value != 10) {
+    if (isEmpty(list) || getValue(list, getPositionByNumber(list, 1)) != 10) {
         return false;
     }
 
     addLast(list, 20);
-    return !(isEmpty(list) || list->head->next->next->value != 20);
+    if (isEmpty(list) || getValue(list, getPositionByNumber(list, 2)) != 20) {
+        removeList(list);
+        return false;
+    }
+    removeList(list);
+    return true;
 }
 
-bool testMakeACircularList() {
-    List* list = createList();
-    addLast(list, 10);
-    addLast(list, 30);
-    addLast(list, 50);
-    if (isEmpty(list) || list->head->next->value != 10 || list->head->next->next->value != 30 || list->head->next->next->next->value != 50) {
-        return false;
+bool runTests() {
+    bool tests[] = {
+        testCreateList(),
+        testGetValue(),
+        testSetValue(),
+        testIsLast(),
+        testIsEmpty(),
+        testAddLast(),
+    };
+    for (int i = 1; i < 6; ++i) {
+        if (!tests[i]) {
+            printf("Test %d failed\n\n", i);
+            return false;
+        }
     }
-    if (list->head->next->next->next->next != NULL) {
-        return false;
-    }
-    makeACircularList(list);
-    return (list->head->next->next->next->next->value == 10);
+    return true;
 }

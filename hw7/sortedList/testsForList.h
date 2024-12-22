@@ -5,9 +5,6 @@
 //tests the creation of a new empty list
 bool testCreateList();
 
-//tests adding an element to the list
-bool testAdd();
-
 //tests a function that returns the value of an element by its position in the list
 bool testGetValue();
 
@@ -23,5 +20,5 @@ bool testIsEmpty();
 //tests the function of adding an element to the end of the list
 bool testAddLast();
 
-//tests a function that makes the list cyclic
-bool testMakeACircularList();
+//function for running tests
+bool runTests();
