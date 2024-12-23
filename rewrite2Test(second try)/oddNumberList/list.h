@@ -58,4 +58,5 @@ void removeElement(List* list, Position position);
 // function for changing the pointer to the next element
 void setNext(ListElement* element, ListElement* next);
 
+// function to remove elements at odd positions
 void removeOddIndexedElements(List* list);

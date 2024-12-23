@@ -167,13 +167,14 @@ void removeOddIndexedElements(List* list) {
 
     Position current = list->head->next;
     Position previous = list->head;
-    int index = 1;
+    int index = 0;
 
     while (current != NULL) {
         Position nextElement = current->next;
 
         if (index % 2 != 0) {
-            removeElement(list, previous);
+            previous->next = nextElement; 
+            free(current);
         }
         else {
             previous = current;
