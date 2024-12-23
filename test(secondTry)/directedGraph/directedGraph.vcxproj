@@ -136,7 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="readFromFile.h" />
-    <ClInclude Include="states.h" />
+    <ClInclude Include="directedGraph.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
-#include "states.h"
+#include "directedGraph.h"
 #include "readFromFile.h"
 
 void readFromFile(const char* filename, int dist[][CITIES], int* n) {
@@ -10,6 +10,7 @@ void readFromFile(const char* filename, int dist[][CITIES], int* n) {
         return;
     }
     if (fscanf(file, "%d ", n) != 1) {
+        fclose(file);
         return;
     }
 
@@ -19,7 +20,7 @@ void readFromFile(const char* filename, int dist[][CITIES], int* n) {
         }
     }
 
-    for (int i = 0; i < CITIES; ++i) {
+    for (int i = 0; i < *n; ++i) {
         int u = 0;
         int v = 0;
         int len = 0;
@@ -29,7 +30,6 @@ void readFromFile(const char* filename, int dist[][CITIES], int* n) {
         u--;
         v--;
         dist[u][v] = len;
-        dist[v][u] = len;
     }
     fclose(file);
 }

@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "states.h"
+#include "directedGraph.h"
 #include "readFromFile.h"
 
 bool test() {
@@ -10,7 +10,7 @@ bool test() {
         return -1;
     }
 
-    int visited[100] = { 0 };
+    int visited[CITIES] = { 0 };
     bool reachEveryone[CITIES];
     int n = 0;
 
@@ -19,9 +19,9 @@ bool test() {
 
     find(testDist, n, reachEveryone);
     for (int i = 0; i < 6; ++i) {
-        if (!reachEveryone[i]) {
+        if (reachEveryone[1]) {
             free(testDist);
-            return false;
+            return true;
         }
     }
     free(testDist);

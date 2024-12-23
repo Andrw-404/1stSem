@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "states.h"
+#include "directedGraph.h"
 
 void vertexSearch(int v, bool visited[], int dist[][CITIES], int n) {
     visited[v] = true;
@@ -17,7 +17,7 @@ void find(int dist[][CITIES], int n, bool reachEveryone[CITIES]) {
     bool visited[CITIES];
 
     for (int i = 0; i < n; ++i) {
-        reachEveryone[i] = true;
+        reachEveryone[i] = false;
     }
 
     for (int i = 0; i < n; ++i) {
@@ -25,12 +25,15 @@ void find(int dist[][CITIES], int n, bool reachEveryone[CITIES]) {
             visited[j] = false;
         }
         vertexSearch(i, visited, dist, n);
-
+        bool canReachAll = true;
         for (int j = 0; j < n; ++j) {
             if (!visited[j]) {
-                reachEveryone[j] = false;
+                canReachAll = false;
                 break;
             }
+        }
+        if (canReachAll) {
+            reachEveryone[i] = true;
         }
     }
 }
@@ -49,3 +52,4 @@ void printReachableNodes(int n, bool reachEveryone[]) {
     }
     printf("\n\n");
 }
+
