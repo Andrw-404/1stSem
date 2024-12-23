@@ -1,5 +1,7 @@
 #pragma once
 
+#define GET_VALUE_ERROR 1;
+
 #include <stdbool.h>
 
 typedef struct ListElement ListElement;
@@ -20,7 +22,7 @@ Position first(List* list);
 void add(List* list, Position position, Value value);
 
 //function to get element value
-Value getValue(List* list, Position position);
+Value getValue(List* list, Position position, int* errorCode);
 
 //function for changing the value of an element
 void setValue(List* list, Position position, Value value);
@@ -51,3 +53,5 @@ Position getTail(List* list);
 
 //function that changes the pointer to the next element
 void setNext(ListElement* element, ListElement* next);
+
+void removeListElement(List* list, Position position);

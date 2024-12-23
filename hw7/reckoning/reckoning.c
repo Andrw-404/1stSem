@@ -1,10 +1,9 @@
 ﻿#include "list.h"
 #include "reckoning.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 
-int reckoning(List* list, int m) {
+int reckoning(List* list, int m, int* errorCode) {
     if (isEmpty(list)) {
         return -1;
     }
@@ -17,11 +16,11 @@ int reckoning(List* list, int m) {
             previous = current;
             current = getNext(current);
         }
-        setNext(previous, getNext(current));
-        free(current);
+        removeListElement(list, previous);
         current = getNext(previous);
     }
 
-    int result = getValue(list, current);
+    int result = getValue(list, current, errorCode);
+    free(current);
     return result;
 }

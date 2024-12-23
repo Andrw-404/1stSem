@@ -51,8 +51,9 @@ void add(List* list, Position position, Value value) {
     }
 }
 
-Value getValue(List* list, Position position) {
+Value getValue(List* list, Position position, int *errorCode) {
     if (position == NULL) {
+        *errorCode = GET_VALUE_ERROR
         return (Value)0;
     }
     return position->value;
@@ -99,7 +100,7 @@ void addLast(List* list, Value value) {
 
     if (list->tail == list->head) {
         list->head->next = element;
-        element->next = NULL;
+        element->next = list->head;
     }
     else  if (list->head->next == list->tail->next) {
         list->tail->next = element;
@@ -107,7 +108,7 @@ void addLast(List* list, Value value) {
     }
     else {
         list->tail->next = element;
-        element->next = NULL;
+        element->next = list->head;
     }
 
     list->tail = element;
@@ -117,12 +118,13 @@ void removeList(List* list) {
     if (list == NULL) {
         return;
     }
-    ListElement* current = list->head;
-    while (current != NULL) {
+    ListElement* current = list->head->next;
+    while (current != list->head) {
         ListElement* next = current->next;
         free(current);
         current = next;
     }
+    free(list->head);
     free(list);
 }
 
@@ -147,5 +149,13 @@ Position getTail(List* list) {
 void setNext(ListElement* element, ListElement* next) {
     if (element != NULL) {
         element->next = next;
+    }
+}
+
+void removeListElement(List* list, Position position) {
+    if (position->next != list->head) {
+        Position tmp = position->next;
+        position->next = tmp->next;
+        free(tmp);
     }
 }

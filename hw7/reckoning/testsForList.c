@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int errorCode = 0;
 
 bool testCreateList() {
     List* list = createList();
@@ -14,13 +15,13 @@ bool testCreateList() {
 bool testAdd() {
     List* list = createList();
     add(list, first(list), 10);
-    if (isEmpty(list) || getValue(list, getNext(first(list))) != 10) {
+    if (isEmpty(list) || getValue(list, getNext(first(list)), &errorCode) != 10) {
         return false;
     }
 
     add(list, getNext(first(list)), 20);
-    return !(isEmpty(list) || getValue(list, getNext(first(list))) != 10 
-        || getValue(list, getPositionByNumber(list, 2)) != 20);
+    return !(isEmpty(list) || getValue(list, getNext(first(list)), &errorCode) != 10
+        || getValue(list, getPositionByNumber(list, 2), &errorCode) != 20);
 }
 
 bool testGetValue() {
@@ -28,12 +29,12 @@ bool testGetValue() {
     add(list, first(list), 10);
     add(list, getNext(first(list)), 20);
 
-    Value testValue = getValue(list, getNext(first(list)));
+    Value testValue = getValue(list, getNext(first(list)), &errorCode);
     if (testValue != 10) {
         return false;
     }
 
-    testValue = getValue(list, getPositionByNumber(list, 2));
+    testValue = getValue(list, getPositionByNumber(list, 2), &errorCode);
     return testValue == 20;
 }
 
@@ -43,12 +44,12 @@ bool testSetValue() {
     add(list, getNext(first(list)), 20);
 
     setValue(list, getPositionByNumber(list, 1), 30);
-    if (getValue(list, getPositionByNumber(list, 1)) != 30) {
+    if (getValue(list, getPositionByNumber(list, 1), &errorCode) != 30) {
         return false;
     }
 
     setValue(list, getPositionByNumber(list, 2), 40);
-    return getValue(list, getPositionByNumber(list, 2)) == 40;
+    return getValue(list, getPositionByNumber(list, 2), &errorCode) == 40;
 }
 
 bool testIsEmpty() {
@@ -67,12 +68,12 @@ bool testIsEmpty() {
 bool testAddLast() {
     List* list = createList();
     addLast(list, 10);
-    if (isEmpty(list) || getValue(list, getPositionByNumber(list, 1)) != 10) {
+    if (isEmpty(list) || getValue(list, getPositionByNumber(list, 1), &errorCode) != 10) {
         return false;
     }
 
     addLast(list, 20);
-    return !(isEmpty(list) || getValue(list, getPositionByNumber(list, 2)) != 20);
+    return !(isEmpty(list) || getValue(list, getPositionByNumber(list, 2), &errorCode) != 20);
 }
 
 bool runTests() {

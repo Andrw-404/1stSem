@@ -8,8 +8,9 @@
 int main(void) {
     setlocale(LC_ALL, "RUS");
     if (!runTests()) {
-        return NULL;
+        return 1;
     }
+    int errrorCode = 0;
 
     List* list = createList();
     
@@ -25,8 +26,11 @@ int main(void) {
         addLast(list, i);
     }
    
-    int k = reckoning(list, m);
+    int k = reckoning(list, m, &errrorCode);
+    if (errrorCode != 0) {
+        removeList(list);
+    }
 
     printf("\nЌомер начальной позиции воина, который должен будет остатьс€ последним: %d\n\n", k);
-
+    removeList(list);
 }
