@@ -41,8 +41,8 @@ void addContact(List* list, char* name, char* phone) {
     }
     strcpy(element->name, name);
     strcpy(element->phone, phone);
-    element->next = list->head;
-    list->head = element;
+    element->next = list->head->next;
+    list->head->next = element;
 }
 
 bool isEmpty(List* list) {
@@ -88,10 +88,6 @@ ListElement* getFirst(List* list) {
 
 ListElement* getNext(Position position) {
     return position ? position->next : NULL;
-}
-
-ListElement** getDoublePointer(Position element) {
-    return element ? &element : NULL;
 }
 
 void setNext(ListElement* element, ListElement* next) {

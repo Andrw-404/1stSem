@@ -8,6 +8,7 @@ void reader(const char* filename, List* list) {
     FILE* file = fopen(filename, "r");
 	if (file == NULL) {
 		perror("elementsForTask.txt");
+		fclose(file);
 		return;
 	}
 	char name[50];

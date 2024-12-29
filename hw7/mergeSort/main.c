@@ -26,7 +26,7 @@ int main(void) {
     reader("contacts.txt", list);
     printList(list);
     int choice = 0;
-    printf("Сортировать по: Имени(1) или Телефону(2)\n");
+    printf("\nСортировать по: Имени(1) или Телефону(2)\n");
     scanf("%d", &choice);
 
     if (choice == 1) {
@@ -41,8 +41,8 @@ int main(void) {
         return 1;
     }
 
-    mergeSort(getDoublePointer(getFirst(list)), sortType);
-    printf("\nОтсортированный список: \n\n\n");
+    list = mergeSort(list, sortType);
+    printf("\n\nОтсортированный список: \n");
     printList(list);
     removeList(list);
 }

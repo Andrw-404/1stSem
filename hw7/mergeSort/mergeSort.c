@@ -3,60 +3,74 @@
 
 #include <string.h>
 
-void split(ListElement* source, ListElement** front, ListElement** back) {
-    if (source == NULL || getNext(source) == NULL) {
-        *front = source;
-        *back = NULL;
-        return;
+void split(List* source, List** front, List** back) {
+    *front = createList();
+    *back = createList();
+
+    ListElement* pos = getNext(getFirst(source));
+
+    int length = 0;
+    while (pos != NULL) {
+        ++length;
+        pos = getNext(pos);
     }
-    ListElement* slow = source;
-    ListElement* fast = getNext(source);
-    
-    while (fast != NULL && getNext(fast) != NULL) {
-        fast = getNext(getNext(fast));
-        slow = getNext(slow);
+
+    pos = getNext(getFirst(source));
+
+    for (int i = 0; i < length / 2; ++i) {
+        addContact(*front, getName(pos), getPhone(pos));
+        pos = getNext(pos);
     }
-    *front = source;
-    *back = getNext(slow);
-    setNext(slow, NULL);
+
+    while (pos != NULL) {
+        addContact(*back, getName(pos), getPhone(pos));
+        pos = getNext(pos);
+    }
 }
 
-ListElement* merge(ListElement* first, ListElement* second, SortType sortType) {
-    if (first == NULL) {
-        return second;
-    }
-    if (second == NULL) {
-        return first;
-    }
-    int compare = 0;
-    if (sortType == byName) {
-        compare = strcmp(getName(first), getName(second));
-    }
-    else {
-        compare = strcmp(getPhone(first), getPhone(second));
-    }
-    ListElement* result = 0;
-    if (compare <= 0) {
-        result = first;
-        setNext(result, merge(getNext(first), second, sortType));
-    }
-    else {
-        result = second;
-        setNext(result, merge(first, getNext(second), sortType));
+List* merge(List* first, List* second, SortType sortType) {
+    List* mergedList = createList();
+    ListElement* current = getFirst(mergedList);
 
+    ListElement* firstElement = getNext(getFirst(first));
+    ListElement* secondElement = getNext(getFirst(second));
+
+    while (firstElement != NULL && secondElement != NULL) {
+        int compare = (sortType == byName) ?
+            strcmp(getName(firstElement), getName(secondElement)) :
+            strcmp(getPhone(firstElement), getPhone(secondElement));
+
+        if (compare <= 0) {
+            setNext(current, firstElement);
+            current = firstElement;
+            firstElement = getNext(firstElement);
+        }
+        else {
+            setNext(current, secondElement);
+            current = secondElement;
+            secondElement = getNext(secondElement);
+        }
     }
-    return result;
+
+    if (firstElement != NULL) {
+        setNext(current, firstElement);
+    }
+    else {
+        setNext(current, secondElement);
+    }
+    return mergedList;
 }
 
-void mergeSort(ListElement** head, SortType sortType) {
-    if (*head == NULL || getNext(*head) == NULL) {
-        return;
+List* mergeSort(List* list, SortType sortType) {
+    if (isEmpty(list) || getNext(getNext(getFirst(list))) == NULL) {
+        return list;
     }
-    ListElement* first = 0;
-    ListElement* second = 0;
-    split(*head, getDoublePointer(first), getDoublePointer(second));
 
-    mergeSort(&first, sortType);
-    mergeSort(&second, sortType);
-    *head = merge(first, second, sortType);
+    List* first = NULL;
+    List* second = NULL;
+    split(list, &first, &second);
+
+    first = mergeSort(first, sortType);
+    second = mergeSort(second, sortType);
+    return merge(first, second, sortType);
 }

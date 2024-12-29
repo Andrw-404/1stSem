@@ -37,8 +37,5 @@ ListElement* getFirst(List* list);
 // function to get the next element in the list
 ListElement* getNext(Position position);
 
-// function for getting a double pointer to an element
-ListElement** getDoublePointer(Position element);
-
 // function for changing the pointer to the next element
 void setNext(ListElement* element, ListElement* next);
