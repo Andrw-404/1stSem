@@ -21,8 +21,13 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
+<<<<<<<< HEAD:hw6/advancedBracketBalance/advancedBracketBalance.vcxproj
     <ProjectGuid>{8efa09cf-6dba-4cee-a9a6-ddf3ac0bee7e}</ProjectGuid>
     <RootNamespace>advancedBracketBalance</RootNamespace>
+========
+    <ProjectGuid>{d149502f-24ef-4321-9bb1-9d797572375d}</ProjectGuid>
+    <RootNamespace>binaryRepresentation</RootNamespace>
+>>>>>>>> parent of ad237a3 (Merge branch 'main' into hw6-postfixCalculator):hw4/binaryRepresentation/binaryRepresentation.vcxproj
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<<< HEAD:hw6/advancedBracketBalance/advancedBracketBalance.vcxproj
     <ClCompile Include="..\..\stack\stack.c" />
     <ClCompile Include="..\..\stack\testStack.c" />
     <ClCompile Include="advancedBracketBalance.c" />
@@ -138,6 +144,9 @@
     <ClInclude Include="stack\stack.h" />
     <ClInclude Include="stack\testStack.h" />
     <ClInclude Include="testsForMainFunctions.h" />
+========
+    <ClCompile Include="binaryRepresentation.c" />
+>>>>>>>> parent of ad237a3 (Merge branch 'main' into hw6-postfixCalculator):hw4/binaryRepresentation/binaryRepresentation.vcxproj
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
