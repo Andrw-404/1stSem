@@ -10,18 +10,6 @@ int getBalance(Dictionary* node);
 // creates a node
 Dictionary* createDictionary(const char* value, const char* key);
 
-// small left rotate
-Dictionary* rotateLeft(Dictionary* node);
-
-// small right rotate
-Dictionary* rotateRight(Dictionary* node);
-
-// big left rotate
-Dictionary* bigLeftRotate(Dictionary* node);
-
-// bit right rotate
-Dictionary* bigRightRotate(Dictionary* node);
-
 // function for connecting a node
 Dictionary* add(Dictionary* node, const char* key, const char* value);
 
