@@ -23,3 +23,6 @@ void pop(Stack* stack);
 
 //function checks if the stack is empty
 bool isEmpty(Stack* stack);
+
+//function to take an element at the head of the stack
+StackElement* top(Stack* stack);

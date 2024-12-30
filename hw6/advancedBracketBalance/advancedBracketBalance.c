@@ -17,10 +17,6 @@ bool haveBrackets(char* string) {
 }
 
 bool advancedBracketBalance(char* string) {
-    if (!haveBrackets(string)) {
-        printf("В строке скобок нет\n\n");
-        return false;
-    }
     Stack* stack = createStack();
     if (stack == NULL) {
         return false;
@@ -33,7 +29,6 @@ bool advancedBracketBalance(char* string) {
         if (current == '(' || current == '{' || current == '[') {
             push(stack, current);
         }
-
         else if (current == ')' || current == '}' || current == ']') {
             if (isEmpty(stack)) {
                 free(stack);
