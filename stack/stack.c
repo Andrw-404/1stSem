@@ -1,5 +1,6 @@
-﻿#include "stack.h"
+﻿
 
+#include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -14,13 +15,15 @@
 	stack->head = element;
 }
 
-void pop(Stack* stack) {
+int pop(Stack* stack) {
 	if (stack->head == NULL) {
-		return;
+		return 1;
 	}
 	StackElement* tmp = stack->head;
+	int value = tmp->value;
 	stack->head = stack->head->next;
 	free(tmp);
+	return value;
 }
 
 Stack* createStack() {
