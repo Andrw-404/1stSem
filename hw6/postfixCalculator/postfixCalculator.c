@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "/Proga/HW(1sem)/1stSem/stack/stack.h"
+#include "stack.h"
 #include "postfixCalculator.h"
 
 bool operatorChecking(char* token) {

@@ -1,4 +1,4 @@
-#include "/Proga/HW(1sem)/1stSem/stack/stack.h"
+#include "stack.h"
 #include "postfixCalculator.h"
 #include "testStack.h"
 #include "testsForPostfixCalculator.h"
