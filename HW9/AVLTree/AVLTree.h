@@ -2,52 +2,49 @@
 
 #include <stdbool.h>
 
-typedef struct Node Node;
+typedef struct Dictionary Dictionary;
 
 // returns the balance of the tree
-int getBalance(Node* node);
+int getBalance(Dictionary* node);
 
 // creates a node
-Node* createNode(const char* value, const char* key);
+Dictionary* createDictionary(const char* value, const char* key);
 
 // small left rotate
-Node* rotateLeft(Node* node);
+Dictionary* rotateLeft(Dictionary* node);
 
 // small right rotate
-Node* rotateRight(Node* node);
+Dictionary* rotateRight(Dictionary* node);
 
 // big left rotate
-Node* bigLeftRotate(Node* node);
+Dictionary* bigLeftRotate(Dictionary* node);
 
 // bit right rotate
-Node* bigRightRotate(Node* node);
+Dictionary* bigRightRotate(Dictionary* node);
 
 // function for connecting a node
-Node* add(Node* node, const char* key, const char* value);
+Dictionary* add(Dictionary* node, const char* key, const char* value);
 
 // function to find a node
-Node* search(Node* node, const char* key);
+Dictionary* search(Dictionary* node, const char* key);
 
 // get node value
-const char* getValue(Node* node, const char* key);
+const char* getValue(Dictionary* node, const char* key);
 
 // check if a node is present in a tree by key
-bool checkTheKey(Node* root, const char* key);
-
-// find the minimum node
-Node* findMin(Node* root);
+bool checkTheKey(Dictionary* root, const char* key);
 
 // function to remove a node from a tree
-Node* deleteNode(Node* root, const char* key);
+Dictionary* deleteNode(Dictionary* root, const char* key);
 
 // function for deleting a tree
-void freeTree(Node* root);
+void freeTree(Dictionary* root);
 
 // function to check if a tree is empty
-bool isEmpty(Node* root);
+bool isEmpty(Dictionary* root);
 
 // function to get the height of a node
-int getHeight(Node* node);
+int getHeight(Dictionary* node);
 
 // function to update node height
-void updateHeight(Node* node);
+void updateHeight(Dictionary* node);

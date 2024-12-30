@@ -11,7 +11,7 @@ int main(void) {
         return -1;
     }
 
-    Node* root = NULL;
+    Dictionary* root = NULL;
     int choice = 0;
     char key[100] = "";
     char value[100] = "";
@@ -27,7 +27,7 @@ int main(void) {
         printf("\n\n");
         switch (choice)
         {
-        case(1):
+        case 1:
             while (getchar() != '\n');
             printf("Введите ключ: ");
             fgets(key, 100, stdin);
@@ -38,7 +38,7 @@ int main(void) {
             printf("\n\n");
             root = add(root, key, value);
             break;
-        case(2):
+        case 2:
             if (isEmpty(root)) {
                 printf("Словарь пуст :(\n\n");
                 break;
@@ -54,11 +54,11 @@ int main(void) {
                     break;
                 }
                 else {
-                    printf("Значение по ключу '%s' не найдено\n", key);
+                    printf("Значение по ключу '%s' не найдено\n\n", key);
                     break;
                 }
             }
-        case(3):
+        case 3:
             if (isEmpty(root)) {
                 printf("Словарь пуст :(\n\n");
                 break;
@@ -74,7 +74,7 @@ int main(void) {
                 printf("Значение с таким ключом отсутствует\n\n");
             }
             break;
-        case(4):
+        case 4:
             if (isEmpty(root)) {
                 printf("Словарь пуст :(\n\n");
                 break;
@@ -94,7 +94,7 @@ int main(void) {
                     break;
                 }
             }
-        case(5):
+        case 5:
             printf("Выход из программы...\n\n\n");
             break;
         default:

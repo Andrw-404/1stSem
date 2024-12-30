@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 bool testForAdd() {
-    Node* testRoot = NULL;
+    Dictionary* testRoot = NULL;
     testRoot = add(testRoot, "10", "aaa");
     testRoot = add(testRoot, "4", "bbb");
     testRoot = add(testRoot, "43", "ccc");
@@ -20,7 +20,7 @@ bool testForAdd() {
 }
 
 bool testForSearch() {
-    Node* testRoot = NULL;
+    Dictionary* testRoot = NULL;
     testRoot = add(testRoot, "10", "aaa");
     testRoot = add(testRoot, "4", "bbb");
     testRoot = add(testRoot, "43", "ccc");
@@ -36,7 +36,7 @@ bool testForSearch() {
 }
 
 bool deleteNodeTest() {
-    Node* testRoot = NULL;
+    Dictionary* testRoot = NULL;
     testRoot = add(testRoot, "10", "aaa");
     testRoot = add(testRoot, "4", "bbb");
     testRoot = add(testRoot, "43", "ccc");
