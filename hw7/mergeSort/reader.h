@@ -1,4 +1,4 @@
 #pragma once
 
 // reads data from a file
-void reader(const char* filename, List* list);
+void readFromFile(const char* filename, List* list);

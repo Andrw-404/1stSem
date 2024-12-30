@@ -27,11 +27,10 @@ List* createList() {
         free(list);
         return NULL;
     }
-    list->head->next = NULL;
     return list;
 }
 
-void addContact(List* list, char* name, char* phone) {
+void addContact(List* list, const char* name, const char* phone) {
     if (list == NULL) {
         return;
     }
@@ -54,31 +53,32 @@ void printList(List* list) {
         printf("List is empty\n");
         return;
     }
-     Position current = list->head;
+     Position current = list->head->next;
      while (current != NULL) {
          printf("%s %s\n", current->name, current->phone);
          current = current->next;
      }
 }
 
-void removeList(List* list) {
+void removeList(List** list) {
     if (list == NULL) {
         return;
     }
-    ListElement* current = list->head;
+    ListElement* current = (*list)->head;
     while (current != NULL) {
         ListElement* next = current->next;
         free(current);
         current = next;
     }
-    free(list);
+    free(*list);
+    *list = NULL;
 }
 
-char* getName(ListElement* element) {
+const char* getName(ListElement* element) {
     return element ? element->name : NULL;
 }
 
-char* getPhone(ListElement* element) {
+const char* getPhone(ListElement* element) {
     return element ? element->phone : NULL;
 }
     

@@ -14,7 +14,7 @@ typedef struct ListElement* Position;
 List* createList(void);
 
 // function for adding an element
-void addContact(List* list, char* name, char* phone);
+void addContact(List* list, const char* name, const char* phone);
 
 // checks if the list is empty 
 bool isEmpty(List* list);
@@ -23,13 +23,13 @@ bool isEmpty(List* list);
 void printList(List* list);
 
 // removes the entire list and frees memory
-void removeList(List* list);
+void removeList(List** list);
 
 // function for getting the name of the transmitted contact
-char* getName(ListElement* element);
+const char* getName(ListElement* element);
 
 // function for getting the phone number of a transmitted contact
-char* getPhone(ListElement* element);
+const char* getPhone(ListElement* element);
 
 // function for getting the first element in the list
 ListElement* getFirst(List* list);

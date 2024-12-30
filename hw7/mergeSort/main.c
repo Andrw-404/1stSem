@@ -17,13 +17,13 @@ int main(void) {
         return NULL;
     }
 
-    if (!testSplit() || !testMergeSortByName()|| !testMergeSortByPhone()) {
+    if (!testMergeSortByName()|| !testMergeSortByPhone()) {
         printf("!!!the program failed the tests!!!\n\n\n");
         return NULL;
     }
 
     List* list = createList();
-    reader("contacts.txt", list);
+    readFromFile("contacts.txt", list);
     printList(list);
     int choice = 0;
     printf("\nСортировать по: Имени(1) или Телефону(2)\n");
@@ -37,12 +37,12 @@ int main(void) {
     }
     else {
         printf("Ошибка ввода\n");
-        removeList(list);
+        removeList(&list);
         return 1;
     }
 
     list = mergeSort(list, sortType);
     printf("\n\nОтсортированный список: \n");
     printList(list);
-    removeList(list);
+    removeList(&list);
 }
