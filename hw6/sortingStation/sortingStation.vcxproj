@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{cadcbfff-7c94-4551-9e6c-938a18c8dce6}</ProjectGuid>
-    <RootNamespace>stack</RootNamespace>
+    <ProjectGuid>{3a8e22ea-8e75-41fd-867a-42a0b3970c5a}</ProjectGuid>
+    <RootNamespace>sortingStation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -128,11 +128,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="sortingStation.c" />
     <ClCompile Include="stack.c" />
+    <ClCompile Include="testsForMainFunctions.c" />
     <ClCompile Include="testStack.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sortingStation.h" />
     <ClInclude Include="stack.h" />
+    <ClInclude Include="testsForMainFunctions.h" />
     <ClInclude Include="testStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
