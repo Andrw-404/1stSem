@@ -1,6 +1,5 @@
-#include "stack.h"
-#include "postfixCalculator.h"
-#include "testStack.h"
+#include "/Proga/HW(1sem)/1stSem/stack/stack.h"
+#include "/Proga/HW(1sem)/1stSem/stack/testStack.h"
 #include "testsForPostfixCalculator.h"
 
 #include <stdio.h>

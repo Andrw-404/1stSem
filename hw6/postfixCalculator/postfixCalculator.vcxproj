@@ -129,14 +129,10 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="postfixCalculator.c" />
-    <ClCompile Include="stack.c" />
     <ClCompile Include="testsForPostfixCalculator.c" />
-    <ClCompile Include="testStack.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\stack\testStack.h" />
     <ClInclude Include="postfixCalculator.h" />
-    <ClInclude Include="stack.h" />
     <ClInclude Include="testsForPostfixCalculator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
