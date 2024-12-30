@@ -43,7 +43,7 @@ Dictionary* createDictionary(const char* value, const char* key) {
         return NULL;
     }
 
-    newNode->height = 1;
+    newNode->height = 0;
     newNode->left = NULL;
     newNode->right = NULL;
     return newNode;
