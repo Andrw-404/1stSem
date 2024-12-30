@@ -51,11 +51,7 @@ void add(List* list, Position position, Value value) {
     }
 }
 
-Value getValue(List* list, Position position, int *errorCode) {
-    if (position == NULL) {
-        *errorCode = GET_VALUE_ERROR
-        return (Value)0;
-    }
+Value getValue(List* list, Position position) {
     return position->value;
 }
 
@@ -102,10 +98,6 @@ void addLast(List* list, Value value) {
         list->head->next = element;
         element->next = list->head;
     }
-    else  if (list->head->next == list->tail->next) {
-        list->tail->next = element;
-        element->next = list->head->next;
-    }
     else {
         list->tail->next = element;
         element->next = list->head;
@@ -115,15 +107,18 @@ void addLast(List* list, Value value) {
 }
 
 void removeList(List* list) {
-    if (list == NULL) {
+    if (isEmpty(list)) {
         return;
     }
-    ListElement* current = list->head->next;
-    while (current != list->head) {
-        ListElement* next = current->next;
-        free(current);
+
+    Position current = list->head->next;
+
+    while (current != list->head && current != NULL) {
+        Position next = current->next;
+        removeListElement(list, current);
         current = next;
     }
+
     free(list->head);
     free(list);
 }
@@ -143,7 +138,7 @@ Position getPositionByNumber(List* list, int number) {
 }
 
 Position getTail(List* list) {
-    return list->tail;
+    return list ? list->tail : NULL;
 }
 
 void setNext(ListElement* element, ListElement* next) {
@@ -153,9 +148,21 @@ void setNext(ListElement* element, ListElement* next) {
 }
 
 void removeListElement(List* list, Position position) {
-    if (position->next != list->head) {
-        Position tmp = position->next;
-        position->next = tmp->next;
-        free(tmp);
+    if (position == NULL || isEmpty(list)) {
+        return;
+    }
+
+    Position current = list->head;
+    while (current->next != position && current->next != list->head) {
+        current = current->next;
+    }
+
+    if (current->next == position) {
+        current->next = position->next;
+        if (position == list->tail) {
+            list->tail = current;
+        }
+        free(position);
+        position = NULL;
     }
 }

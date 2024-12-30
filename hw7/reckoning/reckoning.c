@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-int reckoning(List* list, int m, int* errorCode) {
+int reckoning(List* list, int m) {
     if (isEmpty(list)) {
         return -1;
     }
@@ -11,16 +11,25 @@ int reckoning(List* list, int m, int* errorCode) {
     Position current = getNext(first(list));
     Position previous = getTail(list);
 
-    while (getNext(current) != current) {
+    while (current != previous) {
         for (int i = 1; i < m; ++i) {
             previous = current;
             current = getNext(current);
-        }
-        removeListElement(list, previous);
-        current = getNext(previous);
-    }
 
-    int result = getValue(list, current, errorCode);
-    free(current);
+            if (current == first(list)) {
+                current = getNext(current);
+            }
+        }
+
+        Position delete = current;
+        setNext(previous, getNext(current));
+        current = getNext(previous);
+        free(delete);
+
+        if (current == first(list)) {
+            current = getNext(current);
+        }
+    }
+    int result = getValue(list, current);
     return result;
 }

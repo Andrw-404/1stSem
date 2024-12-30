@@ -2,6 +2,7 @@
 #include "testsForList.h"
 #include "reckoning.h"
 
+#include <stdlib.h>
 #include <locale.h>
 #include <stdio.h>
 
@@ -10,10 +11,9 @@ int main(void) {
     if (!runTests()) {
         return 1;
     }
-    int errrorCode = 0;
 
     List* list = createList();
-    
+
     int m = 0;
     int n = 0;
     printf("\nВведите количество воинов: ");
@@ -25,11 +25,8 @@ int main(void) {
     for (int i = 1; i <= n; ++i) {
         addLast(list, i);
     }
-   
-    int k = reckoning(list, m, &errrorCode);
-    if (errrorCode != 0) {
-        removeList(list);
-    }
+
+    int k = reckoning(list, m);
 
     printf("\nНомер начальной позиции воина, который должен будет остаться последним: %d\n\n", k);
     removeList(list);
