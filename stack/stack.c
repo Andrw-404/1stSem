@@ -30,3 +30,7 @@ Stack* createStack() {
 bool isEmpty(Stack* stack) {
 	return stack->head == NULL;
 }
+
+StackElement* top(Stack* stack) {
+	return stack ? stack->head : NULL;
+}
