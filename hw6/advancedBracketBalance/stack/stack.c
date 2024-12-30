@@ -1,8 +1,9 @@
-﻿#include "stack.h"
-
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+#include "stack.h"
+
 
  void push(Stack* stack, int value) {
 	StackElement* element = malloc(sizeof(StackElement));
