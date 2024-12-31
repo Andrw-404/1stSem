@@ -61,15 +61,17 @@ void printList(List* list) {
 }
 
 void removeList(List** list) {
-    if (list == NULL) {
+    if (list == NULL || *list == NULL) {
         return;
     }
+
     ListElement* current = (*list)->head;
     while (current != NULL) {
         ListElement* next = current->next;
         free(current);
         current = next;
     }
+
     free(*list);
     *list = NULL;
 }
@@ -94,4 +96,17 @@ void setNext(ListElement* element, ListElement* next) {
     if (element != NULL) {
         element->next = next;
     }
+}
+
+ListElement* createListElement(const char* name, const char* phone) {
+    ListElement* element = malloc(sizeof(ListElement));
+    if (element == NULL) {
+        return NULL;
+    }
+    strncpy(element->name, name, sizeof(element->name) - 1);
+    element->name[sizeof(element->name) - 1] = '\0';
+    strncpy(element->phone, phone, sizeof(element->phone) - 1);
+    element->phone[sizeof(element->phone) - 1] = '\0';
+    element->next = NULL;
+    return element;
 }

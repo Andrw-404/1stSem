@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="list.c" />
+    <ClCompile Include="list.c">
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4996</DisableSpecificWarnings>
+    </ClCompile>
     <ClCompile Include="main.c" />
     <ClCompile Include="mergeSort.c" />
     <ClCompile Include="reader.c" />

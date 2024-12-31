@@ -39,3 +39,6 @@ ListElement* getNext(Position position);
 
 // function for changing the pointer to the next element
 void setNext(ListElement* element, ListElement* next);
+
+// accepts the name and number and returns the contact with these details
+ListElement* createListElement(const char* name, const char* phone);

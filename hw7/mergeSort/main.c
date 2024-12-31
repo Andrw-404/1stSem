@@ -11,13 +11,13 @@
 
 int main(void) {
     setlocale(LC_ALL, "Rus");
-    SortType sortType;
+
     if (!testCreateList() || !testIsEmpty() || !testAddContact()) {
         printf("!!!the list did not pass the tests!!!\n\n\n");
         return NULL;
     }
 
-    if (!testMergeSortByName()|| !testMergeSortByPhone()) {
+    if (!testMergeSortByName() || !testMergeSortByPhone()) {
         printf("!!!the program failed the tests!!!\n\n\n");
         return NULL;
     }
@@ -28,6 +28,8 @@ int main(void) {
     int choice = 0;
     printf("\nСортировать по: Имени(1) или Телефону(2)\n");
     scanf("%d", &choice);
+
+    SortType sortType = byName;
 
     if (choice == 1) {
         sortType = byName;

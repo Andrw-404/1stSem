@@ -35,31 +35,44 @@ List* merge(List* first, List* second, SortType sortType) {
     ListElement* firstElement = getNext(getFirst(first));
     ListElement* secondElement = getNext(getFirst(second));
 
+
     while (firstElement != NULL && secondElement != NULL) {
         int compare = (sortType == byName) ?
             strcmp(getName(firstElement), getName(secondElement)) :
             strcmp(getPhone(firstElement), getPhone(secondElement));
 
+        ListElement* nextElement = NULL;
         if (compare <= 0) {
-            setNext(current, firstElement);
-            current = firstElement;
+            nextElement = createListElement(getName(firstElement), getPhone(firstElement));
             firstElement = getNext(firstElement);
         }
         else {
-            setNext(current, secondElement);
-            current = secondElement;
+            nextElement = createListElement(getName(secondElement), getPhone(secondElement));
             secondElement = getNext(secondElement);
         }
+        
+        setNext(current, nextElement);
+        current = nextElement;
     }
 
-    if (firstElement != NULL) {
-        setNext(current, firstElement);
+    while (firstElement != NULL) {
+        ListElement* nextElement = createListElement(getName(firstElement), getPhone(firstElement));
+        setNext(current, nextElement);
+        current = nextElement;
+        firstElement = getNext(firstElement);
     }
-    else {
-        setNext(current, secondElement);
+
+    while (secondElement != NULL) {
+        ListElement* nextElement = createListElement(getName(secondElement), getPhone(secondElement));
+        setNext(current, nextElement);
+        current = nextElement;
+        secondElement = getNext(secondElement);
     }
+
+    setNext(current, NULL);
     return mergedList;
 }
+
 
 List* mergeSort(List* list, SortType sortType) {
     if (isEmpty(list) || getNext(getNext(getFirst(list))) == NULL) {
@@ -70,7 +83,12 @@ List* mergeSort(List* list, SortType sortType) {
     List* second = NULL;
     split(list, &first, &second);
 
+
     first = mergeSort(first, sortType);
     second = mergeSort(second, sortType);
-    return merge(first, second, sortType);
+
+    List* mergedList = merge(first, second, sortType);
+    removeList(&first);
+    removeList(&second);
+    return mergedList;
 }
