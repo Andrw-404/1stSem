@@ -1,5 +1,6 @@
 #include "tree.h"
 #include "tests.h"
+#include "supportFunctions.h"
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -7,7 +8,12 @@
 
 bool testForCreateNode() {
     Node* root = createNode(4, "dq");
-    return root != NULL;
+    if (root != NULL); {
+        freeTree(root);
+        return true;
+    }
+    freeTree(root);
+    return false;
 }
 
 bool testForAdd() {
@@ -45,12 +51,17 @@ bool testForAdd() {
     int sixthKey = getKey(sixth);
     char* sixthValue = getCurrentElementValue(sixth);
 
-    return (firstKey == 3 && strcmp(firstValue, "1") == 0) &&
+    if ((firstKey == 3 && strcmp(firstValue, "1") == 0) &&
         (secondKey == 13 && strcmp(secondValue, "u") == 0) &&
         (thirdKey == 2 && strcmp(thirdValue, "ds") == 0) &&
         (fourthKey == 5 && strcmp(fourthValue, "hi") == 0) &&
         (fifthKey == 10 && strcmp(fifthValue, "bcx") == 0) &&
-        (sixthKey == 18 && strcmp(sixthValue, "4") == 0);
+        (sixthKey == 18 && strcmp(sixthValue, "4") == 0)) {
+        freeTree(root);
+        return true;
+    }
+    freeTree(root);
+    return false;
 }
 
 bool testForSearch() {
@@ -64,10 +75,15 @@ bool testForSearch() {
     Node* second = getRightChild(root);
     Node* third = getRightChild(first);
     Node* fourth = getRightChild(second);
-    return search(root, 3) == first &&
+    if (search(root, 3) == first &&
         search(root, 13) == second &&
         search(root, 5) == third &&
-        search(root, 18) == fourth;
+        search(root, 18) == fourth) {
+        freeTree(root);
+        return true;
+    }
+    freeTree(root);
+    return false;
 }
 
 bool testForDeleteNode() {
@@ -91,7 +107,12 @@ bool testForDeleteNode() {
     root = deleteNode(root, 10);
     root = deleteNode(root, 7);
     
-    return root == NULL;
+    if (root == NULL) {
+        freeTree(root);
+        return true;
+    }
+    freeTree(root);
+    return false;
 }
 
 bool runTests() {

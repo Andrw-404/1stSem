@@ -6,28 +6,20 @@ typedef struct Node Node;
 
 typedef Node* Position;
 
-Node* createNode(int value, const char* string);
-
+// a function for adding a node to a tree
 Node* add(Node* root, int item, char* string);
 
-Node* search(Node* root, int item);
+// a function for getting the node value by key
+char* getValueByKey(Node* root, int key);
 
-char* getValue(Node* root, int item);
-
+// a function that checks for a node with a given key
 bool checkTheKey(Node* root, int item);
 
-Node* findMin(Node* root);
+// a function for deleting a node with a given key
+Node* deleteNode(Node* root, int key);
 
-Node* deleteNode(Node* root, int item);
-
-int getKey(Node* position);
-
+// a function for deleting a tree
 void freeTree(Node* root);
 
+// a function for checking the emptiness of a tree
 bool isEmpty(Node* root);
-
-Node* getLeftChild(Node* root);
-
-Node* getRightChild(Node* root);
-
-char* getCurrentElementValue(Node* position);

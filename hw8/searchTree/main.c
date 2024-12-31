@@ -6,12 +6,12 @@
 #include <locale.h>
 #include <string.h>
 
-void main(void) {
+int main(void) {
     setlocale(LC_ALL, "RUS");
     if (!runTests()) {
-        return;
+        return 4;
     }
-    Node* root = NULL;
+    Node* mainNode = NULL;
     int choice = 0;
     int key = 0;
     char value[100] = "";
@@ -27,7 +27,7 @@ void main(void) {
         printf("\n\n");
         switch (choice)
         {
-        case(1):
+        case 1:
             printf("Введите ключ: ");
             scanf("%d", &key);
             while (getchar() != '\n');
@@ -35,59 +35,59 @@ void main(void) {
             fgets(value, 100, stdin);
             value[strcspn(value, "\n")] = '\0';
             printf("\n\n");
-            root = add(root, key, value);
+            mainNode = add(mainNode, key, value);
             break;
-        case(2):
-            if (isEmpty(root)) {
+        case 2:
+            if (isEmpty(mainNode)) {
                 printf("Дерево пустое :(\n\n");
                 break;
             }
             else {
                 printf("Введите ключ: ");
                 scanf("%d", &key);
-                char* output = getValue(root, key);
+                char* output = getValueByKey(mainNode, key);
                 if (output != NULL) {
                     printf("%s\n\n\n", output);
                     break;
                 }
                 else {
-                    printf("Значение по ключу %d не найдено\n", key);
+                    printf("Значение по ключу %d не найдено\n\n", key);
                     break;
                 }
             }
-        case(3):
-            if (isEmpty(root)) {
+        case 3:
+            if (isEmpty(mainNode)) {
                 printf("Дерево пустое :(\n\n");
                 break;
             }
             printf("Введите ключ: ");
             scanf("%d", &key);
-            if (checkTheKey(root, key)) {
+            if (checkTheKey(mainNode, key)) {
                 printf("Элемент, соответствующий данному ключу найден\n\n");
             }
             else {
                 printf("Элемент соответствующий данному ключу не найден\n\n");
             }
             break;
-        case(4):
-            if (isEmpty(root)) {
+        case 4:
+            if (isEmpty(mainNode)) {
                 printf("Дерево пустое :(\n\n");
                 break;
             }
             else {
                 printf("Введите ключ элемента, который Вы хотите удалить: ");
                 scanf("%d", &key);
-                if (!checkTheKey(root, key)) {
+                if (!checkTheKey(mainNode, key)) {
                     printf("Такого элемента нет\n\n");
                     break;
                 }
                 else {
-                    root = deleteNode(root, key);
+                    mainNode = deleteNode(mainNode, key);
                     printf("Элемент успешно удалён ^_^\n\n");
                     break;
                 }
             }
-        case(5):
+        case 5:
             printf("Выход из программы...\n\n\n");
             break;
         default:
@@ -96,5 +96,5 @@ void main(void) {
         }
     } while (choice != 5);
 
-    freeTree(root);
+    freeTree(mainNode);
 }

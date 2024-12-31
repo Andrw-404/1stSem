@@ -136,6 +136,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="supportFunctions.h" />
     <ClInclude Include="tests.h" />
     <ClInclude Include="tree.h" />
   </ItemGroup>
