@@ -1,5 +1,6 @@
 #include "list.h"
 #include "testsForList.h"
+#include "testForTask.h"
 #include "reckoning.h"
 
 #include <stdlib.h>
@@ -8,11 +9,15 @@
 
 int main(void) {
     setlocale(LC_ALL, "RUS");
-    if (!runTests()) {
+    if (!createCircularListTest()) {
+        printf("The test for the list failed\n\n");
         return 1;
     }
-
-    List* list = createList();
+    
+    if (!reckoningTest()) {
+        printf("The main function failed the test\n\n");
+        return 2;
+    }
 
     int m = 0;
     int n = 0;
@@ -21,13 +26,8 @@ int main(void) {
     printf("\n");
     printf("¬ведите интервал, через который удал€етс€ каждый следующий участник в кругу: ");
     scanf_s("%d", &m);
-    Position current = first(list);
-    for (int i = 1; i <= n; ++i) {
-        addLast(list, i);
-    }
 
-    int k = reckoning(list, m);
+    int k = reckoning(n, m);
 
     printf("\nЌомер начальной позиции воина, который должен будет остатьс€ последним: %d\n\n", k);
-    removeList(list);
 }

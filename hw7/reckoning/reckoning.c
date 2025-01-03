@@ -3,33 +3,21 @@
 
 #include <stdlib.h>
 
-int reckoning(List* list, int m) {
-    if (isEmpty(list)) {
-        return -1;
-    }
+int reckoning(int n, int m) {
+    ListElement* head = createCircularList(n);
+    ListElement* current = head;
 
-    Position current = getNext(first(list));
-    Position previous = getTail(list);
-
-    while (current != previous) {
-        for (int i = 1; i < m; ++i) {
-            previous = current;
-            current = getNext(current);
-
-            if (current == first(list)) {
-                current = getNext(current);
-            }
-        }
-
-        Position delete = current;
-        setNext(previous, getNext(current));
-        current = getNext(previous);
-        free(delete);
-
-        if (current == first(list)) {
+    while (current != getNext(current)) {
+        for (int i = 1; i < m - 1; ++i) {
             current = getNext(current);
         }
+        ListElement* killPosition = getNext(current);
+        setNext(current, getNext(killPosition));
+        free(killPosition);
+        current = getNext(current);
     }
-    int result = getValue(list, current);
+
+    int result = getNumber(current);
+    free(current);
     return result;
 }

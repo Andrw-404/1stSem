@@ -130,11 +130,13 @@
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="reckoning.c" />
+    <ClCompile Include="testForTask.c" />
     <ClCompile Include="testsForList.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="list.h" />
     <ClInclude Include="reckoning.h" />
+    <ClInclude Include="testForTask.h" />
     <ClInclude Include="testsForList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

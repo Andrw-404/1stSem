@@ -1,144 +1,35 @@
 ﻿#include "list.h"
-#include "testsForList.h"
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct ListElement {
-    Value value;
+    Value number;
     struct ListElement* next;
 } ListElement;
 
-typedef struct List {
-    ListElement* head;
-    ListElement* tail;
-} List;
-
-List* createList() {
-    List* list = malloc(sizeof(List));
-    if (list == NULL) {
+ListElement* createListElement(Value number) {
+    ListElement* newElement = malloc(sizeof(ListElement));
+    if (newElement == NULL) {
         return NULL;
     }
-    list->head = calloc(1, sizeof(ListElement));
-    if (list->head == NULL) {
-        free(list);
+    newElement->number = number;
+    newElement->next = NULL;
+    return newElement;
+}
+
+ListElement* createCircularList(int n) {
+    if (n <= 0) {
         return NULL;
     }
-    list->head->next = list->head;
-    list->tail = list->head;
-    return list;
-}
+    ListElement* head = createListElement(1);
+    ListElement* current = head;
 
-Position first(List* list) {
-    return list->head;
-}
-
-void add(List* list, Position position, Value value) {
-    if (list == NULL || position == NULL) {
-        return;
-    }
-    ListElement* element = malloc(sizeof(ListElement));
-    if (element == NULL) {
-        return;
-    }
-    element->value = value;
-    element->next = position->next;
-    position->next = element;
-
-    if (position == list->tail) {
-        list->tail = element;
-    }
-}
-
-Value getValue(List* list, Position position) {
-    return position->value;
-}
-
-Position getNext(Position position) {
-    return position->next;
-}
-
-void setValue(List* list, Position position, Value value) {
-    position->value = value;
-}
-
-bool isValid(List* list, Position position) {
-    return position != NULL;
-}
-
-bool isEmpty(List* list) {
-    return list == NULL || list->tail == first(list);
-}
-
-void printList(List* list) {
-    if (isEmpty(list)) {
-        printf("List is empty\n");
-        return;
-    }
-    Position current = list->head->next;
-    while (current != NULL) {
-        printf("%d ", current->value);
+    for (int i = 2; i <= n; i++) {
+        current->next = createListElement(i);
         current = current->next;
     }
-    printf("end\n");
-}
-
-void addLast(List* list, Value value) {
-    if (list == NULL) {
-        return;
-    }
-    ListElement* element = malloc(sizeof(ListElement));
-    if (element == NULL) {
-        return;
-    }
-    element->value = value;
-
-    if (list->tail == list->head) {
-        list->head->next = element;
-        element->next = list->head;
-    }
-    else {
-        list->tail->next = element;
-        element->next = list->head;
-    }
-
-    list->tail = element;
-}
-
-void removeList(List* list) {
-    if (isEmpty(list)) {
-        return;
-    }
-
-    Position current = list->head->next;
-
-    while (current != list->head && current != NULL) {
-        Position next = current->next;
-        removeListElement(list, current);
-        current = next;
-    }
-
-    free(list->head);
-    free(list);
-}
-
-Position getPositionByNumber(List* list, int number) {
-    if (list == NULL || number <= 0) {
-        return NULL;
-    }
-    Position current = list->head->next;
-    for (int i = 1; current != NULL; ++i) {
-        if (i == number) {
-            return current;
-        }
-        current = current->next;
-    }
-    return NULL;
-}
-
-Position getTail(List* list) {
-    return list ? list->tail : NULL;
+    current->next = head;
+    return head;
 }
 
 void setNext(ListElement* element, ListElement* next) {
@@ -147,22 +38,23 @@ void setNext(ListElement* element, ListElement* next) {
     }
 }
 
-void removeListElement(List* list, Position position) {
-    if (position == NULL || isEmpty(list)) {
+ListElement* getNext(Position element) {
+    return element ? element->next : NULL;
+}
+
+Value getNumber(Position element) {
+    return element ? element->number : -1;
+}
+
+void deleteCircularList(Position head) {
+    if (head == NULL) {
         return;
     }
-
-    Position current = list->head;
-    while (current->next != position && current->next != list->head) {
-        current = current->next;
-    }
-
-    if (current->next == position) {
-        current->next = position->next;
-        if (position == list->tail) {
-            list->tail = current;
-        }
-        free(position);
-        position = NULL;
-    }
+    ListElement* current = head;
+    ListElement* tmp = head;
+    do {
+        tmp = current->next;
+        free(current);
+        current = tmp;
+    } while (current != head);
 }
