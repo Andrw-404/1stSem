@@ -10,18 +10,30 @@ int main(void) {
         printf("Test failed\n\n");
         return -999;
     }
+    int errorCode = 0;
     FILE* file = fopen("fileForTask.txt", "r");
     if (file == NULL) {
         printf("Не удалось открыть файл\n\n");
-        return;
+        return -3;
     }
 
-    Node* root = expressionParse(file);
+    Node* root = expressionParse(file, &errorCode);
+    if (!verify(&errorCode)) {
+        fclose(file);
+        return -3;
+    }
     fclose(file);
-
+    if (root == NULL) {
+        printf("Ошибка при парсинге\n\n");
+        return -4;
+    }
     printTree(root);
 
-    int result = calculate(root);
+    int result = calculate(root, &errorCode);
+    if (!verify(&errorCode)) {
+        freeTree(root);
+        return -1;
+    }
     printf("\nРезультат равен: %d\n\n", result);
     freeTree(root);
 }
