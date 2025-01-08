@@ -4,6 +4,7 @@
 
 #include "test.h"
 #include "AVLTree.h"
+#include "readString.h"
 
 int main(void) {
     setlocale(LC_ALL, "RUS");
@@ -30,11 +31,9 @@ int main(void) {
         case 1:
             while (getchar() != '\n');
             printf("Введите ключ: ");
-            fgets(key, 100, stdin);
-            key[strcspn(key, "\n")] = '\0';
+            readString(key, sizeof(key));
             printf("Введите значение: ");
-            fgets(value, 100, stdin);
-            value[strcspn(value, "\n")] = '\0';
+            readString(value , sizeof(value));
             printf("\n\n");
             root = add(root, key, value);
             break;
@@ -46,8 +45,7 @@ int main(void) {
             else {
                 while (getchar() != '\n');
                 printf("Введите ключ ");
-                fgets(key, 100, stdin);
-                key[strcspn(key, "\n")] = '\0';
+                readString(key, sizeof(key));
                 const char* output = getValue(root, key);
                 if (output != NULL) {
                     printf("%s\n\n\n", output);
@@ -65,8 +63,7 @@ int main(void) {
             }
             while (getchar() != '\n');
             printf("Введите ключ: ");
-            fgets(key, 100, stdin);
-            key[strcspn(key, "\n")] = '\0';
+            readString(key, sizeof(key));
             if (checkTheKey(root, key)) {
                 printf("Значение с таким ключом есть в словаре\n\n");
             }
@@ -82,8 +79,7 @@ int main(void) {
             else {
                 while (getchar() != '\n');
                 printf("Введите ключ: ");
-                fgets(key, 100, stdin);
-                key[strcspn(key, "\n")] = '\0';
+                readString(key, sizeof(key));
                 if (!checkTheKey(root, key)) {
                     printf("Элемент с таким ключом отсутствует\n\n");
                     break;
@@ -102,6 +98,6 @@ int main(void) {
             break;
         }
     } while (choice != 5);
-
+    
     freeTree(root);
 }

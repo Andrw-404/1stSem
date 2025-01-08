@@ -4,6 +4,22 @@
 #include <string.h>
 #include <stdbool.h>
 
+bool isAVLTest() {
+    Dictionary* testRoot = NULL;
+    for (int i = 1; i < 29; ++i) {
+        char key[100] = " ";
+        snprintf(key, sizeof(key), "%d", i);
+        add(testRoot, key, "abc");
+    }
+    bool temp = isAVL(testRoot);
+    if (temp) {
+        freeTree(testRoot);
+        return true;
+    }
+    freeTree(testRoot);
+    return false;
+}
+
 bool testForAdd() {
     Dictionary* testRoot = NULL;
     testRoot = add(testRoot, "10", "aaa");
@@ -64,11 +80,12 @@ bool deleteNodeTest() {
 }
 
 bool runTests() {
-    bool tests[3] = { testForAdd(),
+    bool tests[4] = { isAVLTest(),
+        testForAdd(),
         testForSearch(),
         deleteNodeTest()
     };
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 3; ++i) {
         if (!tests[i]) {
             printf("Test %d is failed\n\n", i);
             return false;

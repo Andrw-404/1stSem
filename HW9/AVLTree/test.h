@@ -2,6 +2,9 @@
 
 #include <stdbool.h>
 
+// function to check if a tree is balanced
+bool isAVLTest();
+
 // test for adding a node to a tree
 bool testForAdd();
 

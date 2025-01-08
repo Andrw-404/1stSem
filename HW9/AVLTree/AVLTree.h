@@ -4,12 +4,6 @@
 
 typedef struct Dictionary Dictionary;
 
-// returns the balance of the tree
-int getBalance(Dictionary* node);
-
-// creates a node
-Dictionary* createDictionary(const char* value, const char* key);
-
 // function for connecting a node
 Dictionary* add(Dictionary* node, const char* key, const char* value);
 
@@ -31,8 +25,5 @@ void freeTree(Dictionary* root);
 // function to check if a tree is empty
 bool isEmpty(Dictionary* root);
 
-// function to get the height of a node
-int getHeight(Dictionary* node);
-
-// function to update node height
-void updateHeight(Dictionary* node);
+// function to check tree balance
+bool isAVL(Dictionary* node);

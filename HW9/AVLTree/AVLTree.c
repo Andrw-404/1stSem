@@ -13,6 +13,10 @@ typedef struct Dictionary {
     int height;
 } Dictionary;
 
+int getHeight(Dictionary* node) {
+    return node ? node->height : -1;
+}
+
 void updateHeight(Dictionary* node) {
     if (node != NULL) {
         node->height = 1 + (getHeight(node->left) > getHeight(node->right) ? getHeight(node->left) : getHeight(node->right));
@@ -31,7 +35,6 @@ Dictionary* createDictionary(const char* value, const char* key) {
 
     newNode->value = strdup(value);
     if (newNode->value == NULL) {
-        free((char*)newNode->key);
         free(newNode);
         return NULL;
     }
@@ -95,16 +98,23 @@ Dictionary* add(Dictionary* node, const char* key, const char* value) {
 
     if (tmp < 0) {
         node->left = add(node->left, key, value);
+        if (node->left == NULL) {
+            return NULL;
+        }
     }
     else if (tmp > 0) {
         node->right = add(node->right, key, value);
-    }
-    else {
-        free((char*)node->value);
-        node->value = strdup(value);
-        if (node->value == NULL) {
+        if (node->right == NULL) {
             return NULL;
         }
+    }
+    else {
+        char* temp = strdup(value);
+        if (temp == NULL) {
+            return NULL;
+        }
+        free((char*)node->value);
+        node->value = strdup(value);
         return node;
     }
     
@@ -168,8 +178,10 @@ Dictionary* removeNode(Dictionary* root) {
             return NULL;
         }
         else {
-            root->key = strdup(tmp->key);
-            root->value = strdup(tmp->value);
+            free((char*)root->key);
+            free((char*)root->value);
+            root->key = tmp->key;
+            root->value = tmp->value;
             root->left = tmp->left;
             root->right = tmp->right;
             free(tmp);
@@ -246,6 +258,13 @@ bool isEmpty(Dictionary* root) {
     return root == NULL;
 }
 
-int getHeight(Dictionary* node) {
-    return node ? node->height : -1;
+bool isAVL(Dictionary* node) {
+    if (node == NULL) {
+        return true;
+    }
+    int balance = getBalance(node);
+    if (balance > 1 || balance < -1) {
+        return false;
+    }
+    return isAVL(node->left) && isAVL(node->right);
 }
